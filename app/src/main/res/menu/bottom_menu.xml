@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/read_books"
+        android:icon="@drawable/read_book"
+        android:title="Read" />
+
+    <item
+        android:id="@+id/unfinished_books"
+        android:icon="@drawable/book_unfinished"
+        android:title="Unfinished" />
+
+    <item
+        android:id="@+id/books_to_read"
+        android:icon="@drawable/book_to_read"
+        android:title="To read" />
+
+</menu>

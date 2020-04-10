@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">BookTracker</string>
+
+    <string name="image_description">Book cover</string>
+    <string name="title_hint">Title</string>
+    <string name="author_hint">Author</string>
+    <string name="fab_search">Search</string>
+    <string name="fab_enter">Add book manually</string>
+
+    <string name="read_books">Read books</string>
+    <string name="unfinished_books">Unfinished books</string>
+    <string name="books_to_read">Books to read</string>
+
+    <string name="toast_input_data">Please input data</string>
+<!--    <string name="take_photo">Take Photo</string>-->
+
+
+    <array name="spinner_choices">
+        <item>Finished book</item>
+        <item>Unfinished book</item>
+        <item>Book to read</item>
+    </array>
+
+
+</resources>
