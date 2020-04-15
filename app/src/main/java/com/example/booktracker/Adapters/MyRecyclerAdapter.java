@@ -46,7 +46,8 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Book book = mBooks.get(position);
 
-        Uri imageUri = Uri.parse(book.getImageUrl());
+//        Uri imageUri = Uri.parse(book.getImageUrl());
+        Uri imageUri = Uri.parse("book.getImageUrl()");
 
         Glide.with(mContext)
                 .load(imageUri)

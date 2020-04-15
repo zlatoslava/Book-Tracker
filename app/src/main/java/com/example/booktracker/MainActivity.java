@@ -45,8 +45,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(mNavListener);
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new ReadBooksFragment())
+        BooksToReadFragment fragment = new BooksToReadFragment();
+        fragment.setTypeOfBooks("READ");
+        getSupportFragmentManager ().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
                 .commit();
         mToolbar.setTitle(R.string.read_books);
     }
@@ -89,23 +91,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private BottomNavigationView.OnNavigationItemSelectedListener mNavListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment selectedFragment = null;
+
+//            Fragment selectedFragment = null;
+//            switch (item.getItemId()) {
+//                case R.id.read_books:
+//                    selectedFragment = new ReadBooksFragment();
+//                    mToolbar.setTitle(R.string.read_books);
+//                    break;
+//                case R.id.unfinished_books:
+//                    selectedFragment = new UnfinishedBooksFragment();
+//                    mToolbar.setTitle(R.string.unfinished_books);
+//                    break;
+//                case R.id.books_to_read:
+//                    selectedFragment = new BooksToReadFragment();
+//                    mToolbar.setTitle(R.string.books_to_read);
+//                    break;
+//            }
+//
+//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment)
+//                    .commit();
+//
+//            return true;
+
+            BooksToReadFragment bookFragment = new BooksToReadFragment();
             switch (item.getItemId()) {
                 case R.id.read_books:
-                    selectedFragment = new ReadBooksFragment();
+                    bookFragment.setTypeOfBooks("READ");
                     mToolbar.setTitle(R.string.read_books);
                     break;
                 case R.id.unfinished_books:
-                    selectedFragment = new UnfinishedBooksFragment();
+                    bookFragment.setTypeOfBooks("UNFINISHED");
                     mToolbar.setTitle(R.string.unfinished_books);
                     break;
                 case R.id.books_to_read:
-                    selectedFragment = new BooksToReadFragment();
+                    bookFragment.setTypeOfBooks("TOREAD");
                     mToolbar.setTitle(R.string.books_to_read);
                     break;
             }
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment)
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, bookFragment)
                     .commit();
 
             return true;
