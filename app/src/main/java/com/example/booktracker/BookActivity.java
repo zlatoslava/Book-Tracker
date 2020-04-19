@@ -18,7 +18,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,12 +37,15 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class AddNewBookActivity extends AppCompatActivity {
+public class BookActivity extends AppCompatActivity {
 
 
     private static final int REQUEST_CAMERA_IMAGE = 1;
     private static final int REQUEST_GALLERY_IMAGE = 2;
     private static final int STORAGE_PERMISSION_CODE = 10;
+
+    public static final int EDIT_MODE_DISABLED = 0;
+    private static final int EDIT_MODE_ENABLED = 1;
 
     private BookViewModel mBookViewModel;
     private Toolbar mToolbar;
@@ -54,8 +56,11 @@ public class AddNewBookActivity extends AppCompatActivity {
     private Spinner mSpinner;
 
     private Book mBook;
+    private boolean mIsNewBook;
+    private int mMode;
 
     private String cameraFilePath;
+    private Uri mImageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +72,54 @@ public class AddNewBookActivity extends AppCompatActivity {
         mBookViewModel = new ViewModelProvider(this).get(BookViewModel.class);
         mBook = new Book();
 
+        if(getIncomingIntent()){
+            mIsNewBook = true;
+        } else {
+            setBookInformation();
+        }
+    }
+
+    private void setBookInformation() {
+        mEditTextTitle.setText(mBook.getName());
+        mEditTextAuthor.setText(mBook.getAuthor());
+        mRatingBar.setRating(mBook.getRating());
+        switch(mBook.getStatus()){
+            case "READ":
+                mSpinner.setSelection(0);
+                break;
+            case "TOREAD":
+                mSpinner.setSelection(2);
+                break;
+            case "UNFINISHED":
+                mSpinner.setSelection(1);
+                break;
+        }
+
+        Uri imageUri = Uri.parse("some_uri");
+
+        try{
+            imageUri = Uri.parse(mBook.getImageUrl());
+        } catch (NullPointerException ex){
+            Toast.makeText(this, "NullPointerException", Toast.LENGTH_SHORT).show(); //TODO change
+        }
+
+        Glide.with(this)
+                .load(imageUri)
+                .centerCrop()
+                .error(R.drawable.book_cover_placeholder)
+                .into(mImageButton);
+    }
+
+    private boolean getIncomingIntent(){
+        if(getIntent().hasExtra("selected_book")){
+            mBook = getIntent().getParcelableExtra("selected_book");
+
+            mIsNewBook = false;
+            return false;
+        }
+
+        mIsNewBook = true;
+        return true;
     }
 
     private void initializeViews() {
@@ -126,14 +179,25 @@ public class AddNewBookActivity extends AppCompatActivity {
             return;
         }
 
+        if(rating == 0){
+            Toast.makeText(this, R.string.toast_input_rating, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         mBook.setName(title);
         mBook.setAuthor(author);
         mBook.setRating(rating);
         mBook.setStatus(status);
+        mBook.setImageUrl(mImageUri.toString());
 
-        mBookViewModel.insert(mBook);
+        if(mIsNewBook){
+            mBookViewModel.insert(mBook);
+        } else {
+            mBookViewModel.update(mBook);
+        }
 
         finish();
+
     }
 
     public void takePhoto(View view) {
@@ -152,7 +216,7 @@ public class AddNewBookActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 switch (options[which].toString()) {
                     case "Take Photo":
-                        if(ContextCompat.checkSelfPermission(AddNewBookActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                        if(ContextCompat.checkSelfPermission(BookActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                             startCameraIntent();
                         } else {
                             requestStoragePermission();
@@ -178,7 +242,7 @@ public class AddNewBookActivity extends AppCompatActivity {
         try {
             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(
-                    AddNewBookActivity.this, BuildConfig.APPLICATION_ID + ".provider", createImageFile()
+                    BookActivity.this, BuildConfig.APPLICATION_ID + ".provider", createImageFile()
             ));
             if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
                 startActivityForResult(takePictureIntent, REQUEST_CAMERA_IMAGE);
@@ -197,7 +261,7 @@ public class AddNewBookActivity extends AppCompatActivity {
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            ActivityCompat.requestPermissions(AddNewBookActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+                            ActivityCompat.requestPermissions(BookActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
                         }
                     })
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -230,26 +294,29 @@ public class AddNewBookActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_CAMERA_IMAGE:
-                    Uri imageUriCamera = Uri.parse(cameraFilePath);
+                    //Uri imageUriCamera = Uri.parse(cameraFilePath);
 
+                    mImageUri = Uri.parse(cameraFilePath);
                     Glide.with(this)
-                            .load(imageUriCamera)
+                            .load(mImageUri)
                             .centerCrop()
                             .into(mImageButton);
 
-                    mBook.setImageUrl(imageUriCamera.toString());
+                    //mBook.setImageUrl(imageUriCamera.toString());
+                    //TODO: save Image Uri to global variable
 
                     break;
 
                 case REQUEST_GALLERY_IMAGE:
-                    Uri imageUriGallery = data.getData();
+                    //Uri imageUriGallery = data.getData();
 
+                    mImageUri = data.getData();
                     Glide.with(this)
-                            .load(imageUriGallery)
+                            .load(mImageUri)
                             .centerCrop()
                             .into(mImageButton);
 
-                    mBook.setImageUrl(imageUriGallery.toString());
+                    //mBook.setImageUrl(imageUriGallery.toString());
                     break;
             }
 

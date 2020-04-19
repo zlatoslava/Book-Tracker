@@ -3,7 +3,6 @@ package com.example.booktracker;
 import androidx.annotation.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,9 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.booktracker.Fragments.BooksToReadFragment;
-import com.example.booktracker.Fragments.ReadBooksFragment;
-import com.example.booktracker.Fragments.UnfinishedBooksFragment;
+import com.example.booktracker.Fragments.BooksListFragment;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -45,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(mNavListener);
 
-        BooksToReadFragment fragment = new BooksToReadFragment();
+        BooksListFragment fragment = new BooksListFragment();
         fragment.setTypeOfBooks("READ");
         getSupportFragmentManager ().beginTransaction()
                 .replace(R.id.fragment_container, fragment)
@@ -82,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.fab_enter_manually:
                 mFloatingActionsMenu.collapse();
-                Intent intent = new Intent(this, AddNewBookActivity.class);
+                Intent intent = new Intent(this, BookActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -113,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //
 //            return true;
 
-            BooksToReadFragment bookFragment = new BooksToReadFragment();
+            BooksListFragment bookFragment = new BooksListFragment();
             switch (item.getItemId()) {
                 case R.id.read_books:
                     bookFragment.setTypeOfBooks("READ");

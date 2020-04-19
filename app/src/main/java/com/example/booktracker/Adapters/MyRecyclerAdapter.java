@@ -2,7 +2,6 @@ package com.example.booktracker.Adapters;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,11 +26,13 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
     private List<Book> mBooks;
     private List<Book> mBookListFull;
     private Context mContext;
+    private OnBookListener mOnBookListener;
 
-    public MyRecyclerAdapter(List<Book> books, Context context) {
+    public MyRecyclerAdapter(List<Book> books, Context context, OnBookListener onBookListener) {
         mBooks = books;
         mContext = context;
         mBookListFull = new ArrayList<>(mBooks);
+        mOnBookListener = onBookListener;
     }
 
 
@@ -39,7 +40,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.book_item, parent, false);
-        return new MyViewHolder(view);
+        return new MyViewHolder(view, mOnBookListener);
     }
 
     @Override
@@ -66,6 +67,10 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
         return mBooks.size();
     }
 
+    public Book getBookAt(int position){
+        return mBooks.get(position);
+    }
+
     public void setData(List<Book> books) {
         mBooks = books;
         mBookListFull.addAll(books);
@@ -77,20 +82,30 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
         return searchFilter;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView bookImage;
         TextView bookName;
         TextView bookAuthor;
         RatingBar ratingBar;
 
-        public MyViewHolder(@NonNull View itemView) {
+        OnBookListener onBookListener;
+
+
+        public MyViewHolder(@NonNull View itemView, OnBookListener onBookListener) {
             super(itemView);
             bookImage = itemView.findViewById(R.id.book_image);
             bookName = itemView.findViewById(R.id.book_name);
             bookAuthor = itemView.findViewById(R.id.book_author);
             ratingBar = itemView.findViewById(R.id.book_rating);
+            this.onBookListener = onBookListener;
+
+            itemView.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+            onBookListener.onBookClicked(getAdapterPosition());
+        }
     }
 
     private Filter searchFilter = new Filter() {
@@ -123,4 +138,8 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
             notifyDataSetChanged();
         }
     };
+
+    public interface OnBookListener {
+        void onBookClicked(int position);
+    }
 }

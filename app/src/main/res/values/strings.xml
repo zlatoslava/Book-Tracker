@@ -12,7 +12,7 @@
     <string name="books_to_read">Books to read</string>
 
     <string name="toast_input_data">Please input data</string>
-<!--    <string name="take_photo">Take Photo</string>-->
+    <string name="toast_input_rating">Please input rating</string>
 
 
     <array name="spinner_choices">

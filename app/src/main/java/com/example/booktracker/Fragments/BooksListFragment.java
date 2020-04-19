@@ -1,6 +1,7 @@
 package com.example.booktracker.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 
 import com.example.booktracker.Adapters.MyRecyclerAdapter;
+import com.example.booktracker.BookActivity;
 import com.example.booktracker.Models.Book;
 import com.example.booktracker.Models.BookViewModel;
 import com.example.booktracker.R;
@@ -28,15 +30,14 @@ import com.example.booktracker.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BooksToReadFragment extends Fragment {
+public class BooksListFragment extends Fragment implements MyRecyclerAdapter.OnBookListener {
 
     private BookViewModel mBookViewModel;
     private RecyclerView mRecyclerView;
     private MyRecyclerAdapter mRecyclerAdapter;
     private String bookType;
 
-
-    public BooksToReadFragment() {
+    public BooksListFragment() {
     }
 
 
@@ -57,7 +58,7 @@ public class BooksToReadFragment extends Fragment {
     }
 
     private void initializeRecyclerView(View rootView){
-        mRecyclerAdapter = new MyRecyclerAdapter(new ArrayList<Book>(), getActivity());
+        mRecyclerAdapter = new MyRecyclerAdapter(new ArrayList<Book>(), getActivity(), this);
         mRecyclerView = rootView.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mRecyclerAdapter);
@@ -102,4 +103,11 @@ public class BooksToReadFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    @Override
+    public void onBookClicked(int position) {
+        Intent intent = new Intent(getContext(), BookActivity.class);
+        Book selectedBook = mRecyclerAdapter.getBookAt(position);
+        intent.putExtra("selected_book", selectedBook);
+        startActivity(intent);
+    }
 }
