@@ -65,7 +65,7 @@ public class BookActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_new_book);
+        setContentView(R.layout.activity_book);
 
         initializeViews();
 
@@ -141,19 +141,28 @@ public class BookActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.add_new_book_menu, menu);
+        getMenuInflater().inflate(R.menu.activity_book_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.add_new_book:
+            case R.id.save:
                 saveNote();
                 return true;
+            case R.id.edit:
+                editNote();
+            case R.id.delete:
+                deleteBook();
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void deleteBook(){
+        mBookViewModel.delete(mBook);
+        finish();
     }
 
     private void saveNote() {
@@ -188,7 +197,7 @@ public class BookActivity extends AppCompatActivity {
         mBook.setAuthor(author);
         mBook.setRating(rating);
         mBook.setStatus(status);
-        mBook.setImageUrl(mImageUri.toString());
+        //mBook.setImageUrl(mImageUri.toString());
 
         if(mIsNewBook){
             mBookViewModel.insert(mBook);
@@ -201,12 +210,6 @@ public class BookActivity extends AppCompatActivity {
     }
 
     public void takePhoto(View view) {
-
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (this.checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_IMAGE_CAPTURE);
-            }
-        }*/
 
         final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -302,7 +305,7 @@ public class BookActivity extends AppCompatActivity {
                             .centerCrop()
                             .into(mImageButton);
 
-                    //mBook.setImageUrl(imageUriCamera.toString());
+                    mBook.setImageUrl(mImageUri.toString());
                     //TODO: save Image Uri to global variable
 
                     break;
@@ -316,7 +319,7 @@ public class BookActivity extends AppCompatActivity {
                             .centerCrop()
                             .into(mImageButton);
 
-                    //mBook.setImageUrl(imageUriGallery.toString());
+                    mBook.setImageUrl(mImageUri.toString());
                     break;
             }
 

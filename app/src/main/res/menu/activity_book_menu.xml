@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/edit"
+        android:title="Edit book"
+        android:icon="@drawable/ic_edit_white_24dp"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/delete"
+        android:title="Delete book"
+        android:icon="@drawable/ic_delete_white_24dp"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/save"
+        android:title="Add new book"
+        android:icon="@drawable/ic_done_white_24dp"
+        app:showAsAction="ifRoom" />
+
+</menu>
