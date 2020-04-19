@@ -18,6 +18,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,8 +45,9 @@ public class BookActivity extends AppCompatActivity {
     private static final int REQUEST_GALLERY_IMAGE = 2;
     private static final int STORAGE_PERMISSION_CODE = 10;
 
-    public static final int EDIT_MODE_DISABLED = 0;
-    private static final int EDIT_MODE_ENABLED = 1;
+    public static final int EDIT_MODE = 0;
+    private static final int INFO_MODE = 1;
+    public static final int  NEW_BOOK_MODE = 2;
 
     private BookViewModel mBookViewModel;
     private Toolbar mToolbar;
@@ -72,10 +74,13 @@ public class BookActivity extends AppCompatActivity {
         mBookViewModel = new ViewModelProvider(this).get(BookViewModel.class);
         mBook = new Book();
 
-        if(getIncomingIntent()){
-            mIsNewBook = true;
+        if(isNewBook()){
+            mToolbar.setTitle("Add new book");
+            mMode = NEW_BOOK_MODE;
         } else {
             setBookInformation();
+            disableInteractions();
+            mMode = INFO_MODE;
         }
     }
 
@@ -110,7 +115,23 @@ public class BookActivity extends AppCompatActivity {
                 .into(mImageButton);
     }
 
-    private boolean getIncomingIntent(){
+    private void disableInteractions(){
+        mEditTextTitle.setInputType(InputType.TYPE_NULL);
+        mEditTextAuthor.setInputType(InputType.TYPE_NULL);
+        mImageButton.setEnabled(false);
+        mRatingBar.setIsIndicator(true);
+        mSpinner.setEnabled(false);
+    }
+
+    private void enableInteractions(){
+        mEditTextTitle.setInputType(InputType.TYPE_CLASS_TEXT);
+        mEditTextAuthor.setInputType(InputType.TYPE_CLASS_TEXT);
+        mImageButton.setEnabled(true);
+        mRatingBar.setIsIndicator(false);
+        mSpinner.setEnabled(true);
+    }
+
+    private boolean isNewBook(){
         if(getIntent().hasExtra("selected_book")){
             mBook = getIntent().getParcelableExtra("selected_book");
 
@@ -124,6 +145,7 @@ public class BookActivity extends AppCompatActivity {
 
     private void initializeViews() {
         mToolbar = findViewById(R.id.toolbar);
+        mToolbar.setTitle(getResources().getString(R.string.app_name));
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -142,6 +164,23 @@ public class BookActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_book_menu, menu);
+        MenuItem editItem = menu.findItem(R.id.edit);
+        MenuItem deleteItem = menu.findItem(R.id.delete);
+        MenuItem saveItem = menu.findItem(R.id.save);
+
+        switch (mMode){
+            case NEW_BOOK_MODE:
+                editItem.setVisible(false);
+                deleteItem.setVisible(false);
+                break;
+            case INFO_MODE:
+                saveItem.setVisible(false);
+                break;
+            case EDIT_MODE:
+                deleteItem.setVisible(false);
+                editItem.setVisible(false);
+                break;
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -153,11 +192,19 @@ public class BookActivity extends AppCompatActivity {
                 return true;
             case R.id.edit:
                 editNote();
+                return true;
             case R.id.delete:
                 deleteBook();
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void editNote(){
+        mToolbar.setTitle("Edit book");
+        enableInteractions();
+        mMode = EDIT_MODE;
+        invalidateOptionsMenu();
     }
 
     private void deleteBook(){
