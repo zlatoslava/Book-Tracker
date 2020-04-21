@@ -3,26 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.booktracker">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-<!--    <uses-feature android:name="android.hardware.camera"-->
-<!--        android:required="false" />-->
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        tools:replace="android:label"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="BookTracker"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:label">
+        <activity
+            android:name=".BookSearch"
+            android:label="Search book"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".BookActivity"
             android:label="Book info"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:label="BookTracker">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,13 +33,13 @@
         </activity>
 
         <provider
-            android:authorities="com.example.booktracker.provider"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.booktracker.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
     </application>
 
