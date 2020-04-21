@@ -218,12 +218,7 @@ public class BookActivity extends AppCompatActivity {
                         finish();
                     }
                 })
-                .setNegativeButton(R.string.dialog_negative_option, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        return;
-                    }
-                });
+                .setNegativeButton(R.string.dialog_negative_option, null);
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
@@ -403,6 +398,17 @@ public class BookActivity extends AppCompatActivity {
         cameraFilePath = "file://" + image.getAbsolutePath();
         return image;
         }
+
+    @Override
+    public void onBackPressed() {
+        if(mMode == EDIT_MODE){
+            mMode = INFO_MODE;
+            invalidateOptionsMenu();
+            setBookInformation();
+            disableInteractions();
+        }
+        else super.onBackPressed();
     }
+}
 
 
