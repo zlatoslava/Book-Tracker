@@ -208,8 +208,24 @@ public class BookActivity extends AppCompatActivity {
     }
 
     private void deleteBook(){
-        mBookViewModel.delete(mBook);
-        finish();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setMessage(R.string.dialog_delete_book)
+                .setPositiveButton(R.string.dialog_positive_option, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mBookViewModel.delete(mBook);
+                        finish();
+                    }
+                })
+                .setNegativeButton(R.string.dialog_negative_option, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     private void saveNote() {
