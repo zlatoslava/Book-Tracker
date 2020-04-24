@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -15,7 +16,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:label">
         <activity
-            android:name=".BookSearch"
+            android:name=".BookSearchActivity"
             android:label="Search book"
             android:parentActivityName=".MainActivity" />
         <activity

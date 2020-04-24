@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.fab_search:
                 mFloatingActionsMenu.collapse();
-                Intent searchIntent = new Intent(this, BookSearch.class);
+                Intent searchIntent = new Intent(this, BookSearchActivity.class);
                 startActivity(searchIntent);
                 break;
 
