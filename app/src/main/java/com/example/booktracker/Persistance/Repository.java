@@ -22,9 +22,9 @@ public class Repository {
         return mBookDao.getAllBooks();
     }
 
-    public LiveData<List<Book>> getBooksByAuthorTask(String author){
-        return mBookDao.getBooksByAuthor(author);
-    }
+//    public LiveData<List<Book>> getBooksByAuthorTask(String author){
+//        return mBookDao.getBooksByAuthor(author);
+//    }
 
     public LiveData<List<Book>> getBooksByStatusTask(String status){
         return mBookDao.getBooksByStatus(status);

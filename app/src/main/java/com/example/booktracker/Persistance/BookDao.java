@@ -20,8 +20,8 @@ public interface BookDao {
     @Query("SELECT * FROM books")
     LiveData<List<Book>> getAllBooks();
 
-    @Query("SELECT * FROM books WHERE author = :name")
-    LiveData<List<Book>> getBooksByAuthor(String name);
+//    @Query("SELECT * FROM books WHERE author = :name")
+//    LiveData<List<Book>> getBooksByAuthor(String name);
 
     @Query("SELECT * FROM books WHERE status = :status")
     LiveData<List<Book>> getBooksByStatus(String status);

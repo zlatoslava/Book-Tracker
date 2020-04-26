@@ -25,6 +25,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
 
     private List<Book> mBooks;
     private List<Book> mBookListFull;
+    private StringBuilder authorsString;
     private Context mContext;
     private OnBookListener mOnBookListener;
 
@@ -47,8 +48,8 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Book book = mBooks.get(position);
 
-//        Uri imageUri = Uri.parse(book.getImageUrl());
-        Uri imageUri = Uri.parse("book.getImageUrl()");
+        Uri imageUri = Uri.parse(book.getImageUrl());
+//        Uri imageUri = Uri.parse("book.getImageUrl()"); //TODO: change
 
         Glide.with(mContext)
                 .load(imageUri)
@@ -57,7 +58,15 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
                 .into(holder.bookImage);
 
         holder.bookName.setText(book.getName());
-        holder.bookAuthor.setText(book.getAuthor());
+
+        authorsString = new StringBuilder();//TODO: maybe change
+        ArrayList<String> authors = (ArrayList<String>) book.getAuthors();
+        if (!authors.isEmpty()) {
+            for (String author : authors) {
+                authorsString.append(author + ", ");
+            }
+        }
+        holder.bookAuthor.setText(authorsString.toString());
         holder.ratingBar.setNumStars(book.getRating());
     }
 
@@ -67,7 +76,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
         return mBooks.size();
     }
 
-    public Book getBookAt(int position){
+    public Book getBookAt(int position) {
         return mBooks.get(position);
     }
 
@@ -118,7 +127,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
                 for (Book book : mBookListFull) {
-                    if (book.getAuthor().toLowerCase().contains(filterPattern) ||
+                    if (authorsString.toString().toLowerCase().contains(filterPattern) ||
                             book.getName().toLowerCase().contains(filterPattern)) {
                         filteredList.add(book);
                     }

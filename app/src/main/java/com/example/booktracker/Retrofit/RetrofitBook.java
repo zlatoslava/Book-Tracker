@@ -11,20 +11,18 @@ public class RetrofitBook {
     // TODO: make progress bar
     // TODO: turn RetrofitBook to Book. Use MyRecyclerAdapter
     // TODO: to take care of List<String> authors
-    // TODO: receive imageUrl from BookApi... HOW?
+    // TODO:
 
 
     @SerializedName("title")
     private String name;
     private List<String> authors;
 
-    @SerializedName("imageLinks")
     private ImageLinks imageLinks;
 
     @Expose(serialize = false, deserialize = false)
     private int id;
-//    @Expose(serialize = false, deserialize = false)
-//    private String imageUrl;                                  //TODO: imageLinks
+
     @Expose(serialize = false, deserialize = false)
     private String author;
     @Expose(serialize = false, deserialize = false)

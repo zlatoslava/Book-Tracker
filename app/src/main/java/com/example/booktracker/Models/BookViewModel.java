@@ -25,9 +25,9 @@ public class BookViewModel extends AndroidViewModel {
         return mAllBooks;
     }
 
-    public LiveData<List<Book>> getBooksByAuthor(String author) {
-        return mRepository.getBooksByAuthorTask(author);
-    }
+//    public LiveData<List<Book>> getBooksByAuthor(String author) {
+//        return mRepository.getBooksByAuthorTask(author);
+//    }
 
     public LiveData<List<Book>> getBooksByStatus(String status) {
         return mRepository.getBooksByStatusTask(status);

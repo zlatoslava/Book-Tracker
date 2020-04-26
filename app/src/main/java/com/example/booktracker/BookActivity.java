@@ -32,11 +32,14 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.booktracker.Models.Book;
 import com.example.booktracker.Models.BookViewModel;
+import com.example.booktracker.Retrofit.ImageLinks;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class BookActivity extends AppCompatActivity {
 
@@ -47,7 +50,9 @@ public class BookActivity extends AppCompatActivity {
 
     public static final int EDIT_MODE = 0;
     private static final int INFO_MODE = 1;
-    public static final int  NEW_BOOK_MODE = 2;
+    public static final int NEW_BOOK_MODE = 2;
+
+    public static final int WEB_MODE = 3;
 
     private BookViewModel mBookViewModel;
     private Toolbar mToolbar;
@@ -74,21 +79,52 @@ public class BookActivity extends AppCompatActivity {
         mBookViewModel = new ViewModelProvider(this).get(BookViewModel.class);
         mBook = new Book();
 
-        if(isNewBook()){
-            mToolbar.setTitle("Add new book");
-            mMode = NEW_BOOK_MODE;
-        } else {
-            setBookInformation();
-            disableInteractions();
-            mMode = INFO_MODE;
+        mMode = getMode();
+        switch (mMode) {
+            case NEW_BOOK_MODE:
+                mIsNewBook = true;
+                mToolbar.setTitle("Add new book");
+                break;
+            case INFO_MODE:
+                mIsNewBook = false;
+                mBook = getBookFromIntent();
+                setBookInformation();
+                disableInteractions();
+                break;
+            case WEB_MODE:
+                mIsNewBook = true;
+                mBook = getBookFromIntent();
+                setBookInformation();
+                break;
         }
+    }
+
+    private int getMode() {
+        Intent incomingIntent = getIntent();
+
+        if (incomingIntent.hasExtra("selected_book")) {
+            if (incomingIntent.getBooleanExtra("isFromWeb", false)) {
+                return WEB_MODE;
+            } else
+                return INFO_MODE;
+        }
+
+        return NEW_BOOK_MODE;
+    }
+
+    private Book getBookFromIntent() {
+        return getIntent().getParcelableExtra("selected_book");
     }
 
     private void setBookInformation() {
         mEditTextTitle.setText(mBook.getName());
-        mEditTextAuthor.setText(mBook.getAuthor());
+        StringBuilder authorsString = new StringBuilder(); //TODO: maybe change
+        for (String author : mBook.getAuthors()) {
+            authorsString.append(author + ", ");
+        }
+        mEditTextAuthor.setText(authorsString);
         mRatingBar.setRating(mBook.getRating());
-        switch(mBook.getStatus()){
+        switch (mBook.getStatus()) {
             case "READ":
                 mSpinner.setSelection(0);
                 break;
@@ -102,9 +138,9 @@ public class BookActivity extends AppCompatActivity {
 
         Uri imageUri = Uri.parse("some_uri");
 
-        try{
+        try {
             imageUri = Uri.parse(mBook.getImageUrl());
-        } catch (NullPointerException ex){
+        } catch (NullPointerException ex) {
             Toast.makeText(this, "NullPointerException", Toast.LENGTH_SHORT).show(); //TODO change
         }
 
@@ -115,7 +151,7 @@ public class BookActivity extends AppCompatActivity {
                 .into(mImageButton);
     }
 
-    private void disableInteractions(){
+    private void disableInteractions() {
         mEditTextTitle.setInputType(InputType.TYPE_NULL);
         mEditTextAuthor.setInputType(InputType.TYPE_NULL);
         mImageButton.setEnabled(false);
@@ -123,24 +159,12 @@ public class BookActivity extends AppCompatActivity {
         mSpinner.setEnabled(false);
     }
 
-    private void enableInteractions(){
+    private void enableInteractions() {
         mEditTextTitle.setInputType(InputType.TYPE_CLASS_TEXT);
         mEditTextAuthor.setInputType(InputType.TYPE_CLASS_TEXT);
         mImageButton.setEnabled(true);
         mRatingBar.setIsIndicator(false);
         mSpinner.setEnabled(true);
-    }
-
-    private boolean isNewBook(){
-        if(getIntent().hasExtra("selected_book")){
-            mBook = getIntent().getParcelableExtra("selected_book");
-
-            mIsNewBook = false;
-            return false;
-        }
-
-        mIsNewBook = true;
-        return true;
     }
 
     private void initializeViews() {
@@ -168,7 +192,8 @@ public class BookActivity extends AppCompatActivity {
         MenuItem deleteItem = menu.findItem(R.id.delete);
         MenuItem saveItem = menu.findItem(R.id.save);
 
-        switch (mMode){
+        switch (mMode) {
+            case WEB_MODE:
             case NEW_BOOK_MODE:
                 editItem.setVisible(false);
                 deleteItem.setVisible(false);
@@ -200,14 +225,14 @@ public class BookActivity extends AppCompatActivity {
         }
     }
 
-    private void editNote(){
+    private void editNote() {
         mToolbar.setTitle("Edit book");
         enableInteractions();
         mMode = EDIT_MODE;
         invalidateOptionsMenu();
     }
 
-    private void deleteBook(){
+    private void deleteBook() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setMessage(R.string.dialog_delete_book)
@@ -246,18 +271,23 @@ public class BookActivity extends AppCompatActivity {
             return;
         }
 
-        if(rating == 0){
+        if (rating == 0) {
             Toast.makeText(this, R.string.toast_input_rating, Toast.LENGTH_SHORT).show();
             return;
         }
 
         mBook.setName(title);
-        mBook.setAuthor(author);
+        List<String> authors = new ArrayList<>();
+        authors.add("Author 1");
+        authors.add("Author 2");
+//        author.
+//        mBook.setAuthors();  //TODO: temporary dummy text, CHANGE!
+        mBook.setAuthors(authors);
         mBook.setRating(rating);
         mBook.setStatus(status);
         //mBook.setImageUrl(mImageUri.toString());
 
-        if(mIsNewBook){
+        if (mIsNewBook) {
             mBookViewModel.insert(mBook);
         } else {
             mBookViewModel.update(mBook);
@@ -277,7 +307,7 @@ public class BookActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 switch (options[which].toString()) {
                     case "Take Photo":
-                        if(ContextCompat.checkSelfPermission(BookActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                        if (ContextCompat.checkSelfPermission(BookActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                             startCameraIntent();
                         } else {
                             requestStoragePermission();
@@ -285,10 +315,7 @@ public class BookActivity extends AppCompatActivity {
                         break;
 
                     case "Choose from Gallery":
-                        Intent pickPhotoIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT,
-                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        pickPhotoIntent.setType("image/*");
-                        startActivityForResult(pickPhotoIntent, REQUEST_GALLERY_IMAGE);
+                        startGalleryIntent();
                         break;
 
                     case "Cancel":
@@ -299,7 +326,7 @@ public class BookActivity extends AppCompatActivity {
         builder.show();
     }
 
-    private void startCameraIntent(){
+    private void startCameraIntent() {
         try {
             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(
@@ -313,8 +340,18 @@ public class BookActivity extends AppCompatActivity {
         }
     }
 
+    private void startGalleryIntent() {
+//        Intent pickPhotoIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT,
+//                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//        pickPhotoIntent.setType("image/*");
+        Intent pickPhotoIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        pickPhotoIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+
+        startActivityForResult(pickPhotoIntent, REQUEST_GALLERY_IMAGE);
+    }
+
     private void requestStoragePermission() {
-        if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
             new AlertDialog.Builder(this)
                     .setTitle("Permission needed")
@@ -339,8 +376,8 @@ public class BookActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode == STORAGE_PERMISSION_CODE ){
-            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == STORAGE_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Permission granted", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
@@ -363,7 +400,9 @@ public class BookActivity extends AppCompatActivity {
                             .centerCrop()
                             .into(mImageButton);
 
-                    mBook.setImageUrl(mImageUri.toString());
+//                    ImageLinks imageLinks = new ImageLinks(mImageUri.toString());
+//                    mBook.setImageLinks(imageLinks);
+                    //mBook.setImageUrl(mImageUri.toString());
                     //TODO: save Image Uri to global variable
 
                     break;
@@ -377,15 +416,16 @@ public class BookActivity extends AppCompatActivity {
                             .centerCrop()
                             .into(mImageButton);
 
-                    mBook.setImageUrl(mImageUri.toString());
+
+                    //mBook.setImageUrl(mImageUri.toString());
                     break;
             }
-
-
+            ImageLinks imageLinks = new ImageLinks(mImageUri.toString());
+            mBook.setImageLinks(imageLinks);
         }
-        }
+    }
 
-        private File createImageFile() throws IOException {
+    private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Camera");
@@ -397,17 +437,16 @@ public class BookActivity extends AppCompatActivity {
 
         cameraFilePath = "file://" + image.getAbsolutePath();
         return image;
-        }
+    }
 
     @Override
     public void onBackPressed() {
-        if(mMode == EDIT_MODE){
+        if (mMode == EDIT_MODE) {
             mMode = INFO_MODE;
             invalidateOptionsMenu();
             setBookInformation();
             disableInteractions();
-        }
-        else super.onBackPressed();
+        } else super.onBackPressed();
     }
 }
 

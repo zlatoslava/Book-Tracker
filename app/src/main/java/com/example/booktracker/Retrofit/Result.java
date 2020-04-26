@@ -1,9 +1,11 @@
 package com.example.booktracker.Retrofit;
 
-public class Result {
-    RetrofitBook volumeInfo;
+import com.example.booktracker.Models.Book;
 
-    public RetrofitBook getBook() {
+public class Result {
+    Book volumeInfo;
+
+    public Book getBook() {
         return volumeInfo;
     }
 }

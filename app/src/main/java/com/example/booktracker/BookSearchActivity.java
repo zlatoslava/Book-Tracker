@@ -6,12 +6,15 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.booktracker.Adapters.MyRecyclerAdapter;
 import com.example.booktracker.Adapters.MyRecyclerAdapterForRetrofit;
+import com.example.booktracker.Models.Book;
 import com.example.booktracker.Retrofit.ImageLinks;
 import com.example.booktracker.Retrofit.Result;
 import com.example.booktracker.Retrofit.Results;
@@ -26,20 +29,19 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BookSearchActivity extends AppCompatActivity {
+public class BookSearchActivity extends AppCompatActivity implements MyRecyclerAdapter.OnBookListener {
 
     private static final String TAG = "mtag";
 
     private RecyclerView mRecyclerView;
     private SearchView mSearchView;
-    private ArrayList<RetrofitBook> mBooks;
-    private MyRecyclerAdapterForRetrofit mAdapter;
+    private ArrayList<Book> mBooks;
+    private MyRecyclerAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_search);
-
 
         mBooks = new ArrayList<>();
 
@@ -54,12 +56,7 @@ public class BookSearchActivity extends AppCompatActivity {
 
         mRecyclerView = findViewById(R.id.recycler_view_search_activity);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new MyRecyclerAdapterForRetrofit(mBooks, this, new MyRecyclerAdapterForRetrofit.OnBookListener() {
-            @Override
-            public void onBookClicked(int position) {
-                Toast.makeText(BookSearchActivity.this, "Book clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
+        mAdapter = new MyRecyclerAdapter(mBooks, this, this);
         mRecyclerView.setAdapter(mAdapter);
 
         mSearchView = findViewById(R.id.searchView_search_activity);
@@ -67,7 +64,6 @@ public class BookSearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 doRetrofitCall(query);
-                Log.d(TAG, "onQueryTextSubmit: " + mBooks.toString());
                 return true;
             }
             @Override
@@ -78,8 +74,6 @@ public class BookSearchActivity extends AppCompatActivity {
     }
 
     private void doRetrofitCall(String query) {
-        //TextView textView = findViewById(R.id.textView_search_activity);
-        //textView.setText("");
 
         final RetrofitApi retrofitApi = RetrofitInstance.getInstance().create(RetrofitApi.class);
         Call<Results> call = retrofitApi.getBooks(query);
@@ -108,8 +102,6 @@ public class BookSearchActivity extends AppCompatActivity {
 
                 mAdapter.setData(mBooks);
                 mAdapter.notifyDataSetChanged();
-
-                Log.d("mtag", "onResponse: working");
             }
 
             @Override
@@ -119,4 +111,14 @@ public class BookSearchActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBookClicked(int position) {
+            Intent intent = new Intent(this, BookActivity.class);
+            Book selectedBook = mAdapter.getBookAt(position);
+            selectedBook.setStatus("READ");
+            intent.putExtra("selected_book", selectedBook);
+            intent.putExtra("isFromWeb", true);
+            startActivity(intent);
+            finish();
+    }
 }

@@ -3,25 +3,47 @@ package com.example.booktracker.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
+
+import com.example.booktracker.Persistance.Converters;
+import com.example.booktracker.Retrofit.ImageLinks;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(tableName = "books")
 public class Book implements Parcelable {
 
+    @Expose(serialize = false, deserialize = false)
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private String imageUrl;
+
+    @SerializedName("imageLinks")
+    @Embedded
+    private ImageLinks imageLinks;
+//    private String imageUrl;
+    @SerializedName("title")
     private String name;
-    private String author;
+    @SerializedName("authors")
+    @TypeConverters(Converters.class)
+    private List<String> authors = new ArrayList<>();
+//    private String author;
+    @Expose(serialize = false, deserialize = false)
     private int rating;
+    @Expose(serialize = false, deserialize = false)
     private String status;  //"READ", "TOREAD", "UNFINISHED"
 
-    public Book(String imageUrl, String name, String author, int rating, String status) {
-        this.imageUrl = imageUrl;
+    public Book(ImageLinks imageLinks, String name, List<String> authors, int rating, String status) {
+        this.imageLinks = imageLinks;
         this.name = name;
-        this.author = author;
+        this.authors = authors;
         this.rating = rating;
         this.status = status;
     }
@@ -32,9 +54,9 @@ public class Book implements Parcelable {
 
     protected Book(Parcel in){
         id = in.readInt();
-        imageUrl = in.readString();
+        imageLinks = in.readParcelable(ImageLinks.class.getClassLoader());
         name = in.readString();
-        author = in.readString();
+        in.readStringList(authors);
         rating = in.readInt();
         status = in.readString();
     }
@@ -52,12 +74,20 @@ public class Book implements Parcelable {
         }
     };
 
-    public String getImageUrl() {
-        return imageUrl;
+    public int getId() {
+        return id;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public ImageLinks getImageLinks() {
+        return imageLinks;
+    }
+
+    public void setImageLinks(ImageLinks imageLinks) {
+        this.imageLinks = imageLinks;
     }
 
     public String getName() {
@@ -68,12 +98,12 @@ public class Book implements Parcelable {
         this.name = name;
     }
 
-    public String getAuthor() {
-        return author;
+    public List<String> getAuthors() {
+        return authors;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthors(List<String> authors) {
+        this.authors = authors;
     }
 
     public int getRating() {
@@ -84,20 +114,20 @@ public class Book implements Parcelable {
         this.rating = rating;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getImageUrl(){
+        return imageLinks.getImageUrl();
+    }
+
+    public void setImageUrl(String url){
+        imageLinks.setImageUrl(url);
     }
 
     @Override
@@ -108,9 +138,9 @@ public class Book implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
-        dest.writeString(imageUrl);
+        dest.writeParcelable(imageLinks, flags);
         dest.writeString(name);
-        dest.writeString(author);
+        dest.writeStringList(authors);
         dest.writeInt(rating);
         dest.writeString(status);
     }
