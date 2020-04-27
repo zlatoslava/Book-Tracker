@@ -28,7 +28,7 @@
             style="@style/Widget.AppCompat.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="8dp"
             android:clickable="false"
             android:isIndicator="true"
             android:numStars="5"
@@ -39,26 +39,31 @@
 
         <TextView
             android:id="@+id/book_author"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="Rowling"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/book_image"
+            app:layout_constraintEnd_toStartOf="@+id/book_rating"
+            app:layout_constraintStart_toEndOf="@+id/book_image"
             app:layout_constraintTop_toBottomOf="@id/book_name" />
 
         <TextView
             android:id="@+id/book_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:letterSpacing="0"
             android:text="Harry Potter"
             android:textColor="@android:color/white"
-            android:textSize="24sp"
-            app:layout_constraintLeft_toRightOf="@id/book_image"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/book_rating"
+            app:layout_constraintStart_toEndOf="@+id/book_image"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline

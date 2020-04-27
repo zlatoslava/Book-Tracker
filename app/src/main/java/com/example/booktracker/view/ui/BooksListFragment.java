@@ -1,4 +1,4 @@
-package com.example.booktracker.Fragments;
+package com.example.booktracker.view.ui;
 
 
 import android.content.Intent;
@@ -21,10 +21,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 
-import com.example.booktracker.Adapters.MyRecyclerAdapter;
-import com.example.booktracker.BookActivity;
-import com.example.booktracker.Models.Book;
-import com.example.booktracker.Models.BookViewModel;
+import com.example.booktracker.view.adapter.MyRecyclerAdapter;
+import com.example.booktracker.models.Book;
+import com.example.booktracker.models.BookViewModel;
 import com.example.booktracker.R;
 
 import java.util.ArrayList;

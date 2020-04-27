@@ -1,4 +1,4 @@
-package com.example.booktracker.Adapters;
+package com.example.booktracker.view.adapter;
 
 import android.content.Context;
 import android.net.Uri;
@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.booktracker.Models.Book;
+import com.example.booktracker.models.Book;
 import com.example.booktracker.R;
 
 import java.util.ArrayList;

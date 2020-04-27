@@ -1,19 +1,21 @@
-package com.example.booktracker.Persistance;
+package com.example.booktracker.data;
 
 import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.booktracker.Models.Book;
+import com.example.booktracker.models.Book;
+import com.example.booktracker.data.local.BookDao;
+import com.example.booktracker.data.local.BooksDatabase;
 
 import java.util.List;
 
-public class Repository {
+public class DataBaseRepository {
 
     private BookDao mBookDao;
 
-    public Repository(Application application) {
+    public DataBaseRepository(Application application) {
         BooksDatabase mBooksDatabase = BooksDatabase.getInstance(application);
         mBookDao = mBooksDatabase.getBookDao();
     }

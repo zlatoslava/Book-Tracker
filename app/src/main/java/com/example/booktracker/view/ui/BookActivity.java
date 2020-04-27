@@ -1,4 +1,4 @@
-package com.example.booktracker;
+package com.example.booktracker.view.ui;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,15 +24,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.booktracker.Models.Book;
-import com.example.booktracker.Models.BookViewModel;
-import com.example.booktracker.Retrofit.ImageLinks;
+import com.example.booktracker.BuildConfig;
+import com.example.booktracker.models.Book;
+import com.example.booktracker.models.BookViewModel;
+import com.example.booktracker.models.ImageLinks;
+import com.example.booktracker.R;
 
 import java.io.File;
 import java.io.IOException;
@@ -58,7 +60,7 @@ public class BookActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private EditText mEditTextTitle;
     private EditText mEditTextAuthor;
-    private ImageButton mImageButton;
+    private ImageView mImageButton;
     private RatingBar mRatingBar;
     private Spinner mSpinner;
 
@@ -67,7 +69,7 @@ public class BookActivity extends AppCompatActivity {
     private int mMode;
 
     private String cameraFilePath;
-    private Uri mImageUri;
+    private Uri mImageUri = Uri.parse("");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +96,7 @@ public class BookActivity extends AppCompatActivity {
             case WEB_MODE:
                 mIsNewBook = true;
                 mBook = getBookFromIntent();
+                mImageUri = Uri.parse(mBook.getImageUrl());
                 setBookInformation();
                 break;
         }
@@ -181,7 +184,7 @@ public class BookActivity extends AppCompatActivity {
 
         mEditTextTitle = findViewById(R.id.editText);
         mEditTextAuthor = findViewById(R.id.editText2);
-        mImageButton = findViewById(R.id.imageButton);
+        mImageButton = findViewById(R.id.imageViewBook);
         mRatingBar = findViewById(R.id.ratingBar);
     }
 
@@ -285,7 +288,12 @@ public class BookActivity extends AppCompatActivity {
         mBook.setAuthors(authors);
         mBook.setRating(rating);
         mBook.setStatus(status);
-        //mBook.setImageUrl(mImageUri.toString());
+
+        if (mImageUri == null) {
+            mImageUri = Uri.parse("dummy uri");
+            ImageLinks imageLinks = new ImageLinks(mImageUri.toString());
+            mBook.setImageLinks(imageLinks);
+        }
 
         if (mIsNewBook) {
             mBookViewModel.insert(mBook);
@@ -294,7 +302,6 @@ public class BookActivity extends AppCompatActivity {
         }
 
         finish();
-
     }
 
     public void takePhoto(View view) {
@@ -341,9 +348,6 @@ public class BookActivity extends AppCompatActivity {
     }
 
     private void startGalleryIntent() {
-//        Intent pickPhotoIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT,
-//                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//        pickPhotoIntent.setType("image/*");
         Intent pickPhotoIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         pickPhotoIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
 
@@ -392,7 +396,6 @@ public class BookActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_CAMERA_IMAGE:
-                    //Uri imageUriCamera = Uri.parse(cameraFilePath);
 
                     mImageUri = Uri.parse(cameraFilePath);
                     Glide.with(this)
@@ -400,15 +403,11 @@ public class BookActivity extends AppCompatActivity {
                             .centerCrop()
                             .into(mImageButton);
 
-//                    ImageLinks imageLinks = new ImageLinks(mImageUri.toString());
-//                    mBook.setImageLinks(imageLinks);
-                    //mBook.setImageUrl(mImageUri.toString());
                     //TODO: save Image Uri to global variable
 
                     break;
 
                 case REQUEST_GALLERY_IMAGE:
-                    //Uri imageUriGallery = data.getData();
 
                     mImageUri = data.getData();
                     Glide.with(this)
@@ -416,13 +415,11 @@ public class BookActivity extends AppCompatActivity {
                             .centerCrop()
                             .into(mImageButton);
 
-
-                    //mBook.setImageUrl(mImageUri.toString());
                     break;
             }
-            ImageLinks imageLinks = new ImageLinks(mImageUri.toString());
-            mBook.setImageLinks(imageLinks);
         }
+        ImageLinks imageLinks = new ImageLinks(mImageUri.toString());
+        mBook.setImageLinks(imageLinks);
     }
 
     private File createImageFile() throws IOException {

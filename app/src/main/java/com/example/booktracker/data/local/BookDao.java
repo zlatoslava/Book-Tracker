@@ -1,4 +1,4 @@
-package com.example.booktracker.Persistance;
+package com.example.booktracker.data.local;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -7,7 +7,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.booktracker.Models.Book;
+import com.example.booktracker.models.Book;
 
 import java.util.List;
 

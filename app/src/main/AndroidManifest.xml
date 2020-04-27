@@ -16,15 +16,15 @@
         android:theme="@style/AppTheme"
         tools:replace="android:label">
         <activity
-            android:name=".BookSearchActivity"
+            android:name=".view.ui.BookSearchActivity"
             android:label="Search book"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".view.ui.MainActivity" />
         <activity
-            android:name=".BookActivity"
+            android:name=".view.ui.BookActivity"
             android:label="Book info"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".view.ui.MainActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".view.ui.MainActivity"
             android:label="BookTracker">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

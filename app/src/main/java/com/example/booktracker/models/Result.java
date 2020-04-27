@@ -1,6 +1,4 @@
-package com.example.booktracker.Retrofit;
-
-import com.example.booktracker.Models.Book;
+package com.example.booktracker.models;
 
 public class Result {
     Book volumeInfo;

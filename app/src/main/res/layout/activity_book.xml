@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_primary_variant"
-    tools:context=".BookActivity">
+    tools:context=".view.ui.BookActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -16,8 +16,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/imageButton"
+    <ImageView
+        android:id="@+id/imageViewBook"
         android:layout_width="100dp"
         android:layout_height="150dp"
         android:layout_marginStart="24dp"
@@ -25,30 +25,35 @@
         android:contentDescription="@string/image_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        android:onClick="takePhoto" />
+        android:onClick="takePhoto"
+        android:src="@drawable/book_cover_placeholder"/>
 
     <EditText
         android:id="@+id/editText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/title_hint"
         android:inputType="textPersonName|textCapWords"
-        app:layout_constraintStart_toEndOf="@+id/imageButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageViewBook"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <EditText
         android:id="@+id/editText2"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
-        android:inputType="textPersonName|textCapWords"
         android:hint="@string/author_hint"
-        app:layout_constraintStart_toEndOf="@+id/imageButton"
+        android:inputType="textPersonName|textCapWords"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageViewBook"
         app:layout_constraintTop_toBottomOf="@+id/editText" />
 
     <RatingBar
@@ -61,7 +66,7 @@
         android:numStars="5"
         android:stepSize="1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewBook" />
 
     <Spinner
         android:id="@+id/spinner"

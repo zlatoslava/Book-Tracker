@@ -1,4 +1,4 @@
-package com.example.booktracker;
+package com.example.booktracker.view.ui;
 
 import androidx.annotation.*;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.booktracker.Fragments.BooksListFragment;
+import com.example.booktracker.R;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

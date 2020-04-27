@@ -1,15 +1,12 @@
-package com.example.booktracker.Persistance;
+package com.example.booktracker.data.local;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.migration.Migration;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.booktracker.Models.Book;
+import com.example.booktracker.models.Book;
 
 @Database(entities = {Book.class}, version = 1, exportSchema = false)
 public abstract class BooksDatabase extends RoomDatabase {
@@ -18,7 +15,7 @@ public abstract class BooksDatabase extends RoomDatabase {
 
     private static BooksDatabase instance;
 
-    static BooksDatabase getInstance(final Context context){
+    static public BooksDatabase getInstance(final Context context){
         if(instance == null){
             instance = Room.databaseBuilder(context.getApplicationContext(),
                                             BooksDatabase.class,

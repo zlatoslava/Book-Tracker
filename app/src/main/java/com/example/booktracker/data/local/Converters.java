@@ -1,4 +1,4 @@
-package com.example.booktracker.Persistance;
+package com.example.booktracker.data.local;
 
 import androidx.room.TypeConverter;
 

@@ -1,4 +1,4 @@
-package com.example.booktracker.Retrofit;
+package com.example.booktracker.models;
 
 import java.util.List;
 

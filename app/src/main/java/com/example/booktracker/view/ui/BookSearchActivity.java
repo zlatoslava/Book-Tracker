@@ -1,4 +1,4 @@
-package com.example.booktracker;
+package com.example.booktracker.view.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -9,18 +9,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.booktracker.Adapters.MyRecyclerAdapter;
-import com.example.booktracker.Adapters.MyRecyclerAdapterForRetrofit;
-import com.example.booktracker.Models.Book;
-import com.example.booktracker.Retrofit.ImageLinks;
-import com.example.booktracker.Retrofit.Result;
-import com.example.booktracker.Retrofit.Results;
-import com.example.booktracker.Retrofit.RetrofitApi;
-import com.example.booktracker.Retrofit.RetrofitBook;
-import com.example.booktracker.Retrofit.RetrofitInstance;
+import com.example.booktracker.view.adapter.MyRecyclerAdapter;
+import com.example.booktracker.models.Book;
+import com.example.booktracker.models.Result;
+import com.example.booktracker.models.Results;
+import com.example.booktracker.R;
+import com.example.booktracker.data.remote.RetrofitApi;
+import com.example.booktracker.data.remote.RetrofitInstance;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.booktracker.Models;
+package com.example.booktracker.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -7,11 +7,9 @@ import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
-import com.example.booktracker.Persistance.Converters;
-import com.example.booktracker.Retrofit.ImageLinks;
+import com.example.booktracker.data.local.Converters;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

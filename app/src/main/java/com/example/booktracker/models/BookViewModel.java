@@ -1,23 +1,23 @@
-package com.example.booktracker.Models;
+package com.example.booktracker.models;
 
 import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.booktracker.Persistance.Repository;
+import com.example.booktracker.data.DataBaseRepository;
 
 import java.util.List;
 
 public class BookViewModel extends AndroidViewModel {
 
-    private Repository mRepository;
+    private DataBaseRepository mRepository;
 
     private LiveData<List<Book>> mAllBooks;
 
     public BookViewModel(Application application) {
         super(application);
-        mRepository = new Repository(application);
+        mRepository = new DataBaseRepository(application);
         mAllBooks = mRepository.getAllBooks();
     }
 
