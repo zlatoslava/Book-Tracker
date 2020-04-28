@@ -23,7 +23,7 @@ import android.view.inputmethod.EditorInfo;
 
 import com.example.booktracker.view.adapter.MyRecyclerAdapter;
 import com.example.booktracker.models.Book;
-import com.example.booktracker.models.BookViewModel;
+import com.example.booktracker.viewModels.BookViewModel;
 import com.example.booktracker.R;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.example.booktracker.models;
+package com.example.booktracker.viewModels;
 
 import android.app.Application;
 
@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.booktracker.data.DataBaseRepository;
+import com.example.booktracker.models.Book;
 
 import java.util.List;
 

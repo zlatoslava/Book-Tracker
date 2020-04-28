@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.booktracker.R;
+import com.example.booktracker.databinding.ActivityMainBinding;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -18,36 +19,34 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Toolbar mToolbar;
-    private FloatingActionsMenu mFloatingActionsMenu;
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         initializeViews();
+        setInitialFragment();
     }
 
-    public void initializeViews(){
-        mFloatingActionsMenu = findViewById(R.id.fab_menu);
-        FloatingActionButton fabSearch = findViewById(R.id.fab_search);
-        fabSearch.setOnClickListener(this);
-        FloatingActionButton fabEnterManually = findViewById(R.id.fab_enter_manually);
-        fabEnterManually.setOnClickListener(this);
+    public void initializeViews() {
+        binding.fabSearch.setOnClickListener(this);
+        binding.fabEnterManually.setOnClickListener(this);
 
-        mToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
+        setSupportActionBar(binding.toolbar);
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-        bottomNav.setOnNavigationItemSelectedListener(mNavListener);
+        binding.bottomNavigation.setOnNavigationItemSelectedListener(mNavListener);
+    }
 
+    private void setInitialFragment() {
         BooksListFragment fragment = new BooksListFragment();
         fragment.setTypeOfBooks("READ");
-        getSupportFragmentManager ().beginTransaction()
+        getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commit();
-        mToolbar.setTitle(R.string.read_books);
+        binding.toolbar.setTitle(R.string.read_books);
     }
 
     @Override
@@ -74,13 +73,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab_search:
-                mFloatingActionsMenu.collapse();
+                binding.fabMenu.collapse();
                 Intent searchIntent = new Intent(this, BookSearchActivity.class);
                 startActivity(searchIntent);
                 break;
 
             case R.id.fab_enter_manually:
-                mFloatingActionsMenu.collapse();
+                binding.fabMenu.collapse();
                 Intent intent = new Intent(this, BookActivity.class);
                 startActivity(intent);
                 break;
@@ -91,40 +90,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-//            Fragment selectedFragment = null;
-//            switch (item.getItemId()) {
-//                case R.id.read_books:
-//                    selectedFragment = new ReadBooksFragment();
-//                    mToolbar.setTitle(R.string.read_books);
-//                    break;
-//                case R.id.unfinished_books:
-//                    selectedFragment = new UnfinishedBooksFragment();
-//                    mToolbar.setTitle(R.string.unfinished_books);
-//                    break;
-//                case R.id.books_to_read:
-//                    selectedFragment = new BooksToReadFragment();
-//                    mToolbar.setTitle(R.string.books_to_read);
-//                    break;
-//            }
-//
-//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment)
-//                    .commit();
-//
-//            return true;
-
             BooksListFragment bookFragment = new BooksListFragment();
             switch (item.getItemId()) {
                 case R.id.read_books:
                     bookFragment.setTypeOfBooks("READ");
-                    mToolbar.setTitle(R.string.read_books);
+                    binding.toolbar.setTitle(R.string.read_books);
                     break;
                 case R.id.unfinished_books:
                     bookFragment.setTypeOfBooks("UNFINISHED");
-                    mToolbar.setTitle(R.string.unfinished_books);
+                    binding.toolbar.setTitle(R.string.unfinished_books);
                     break;
                 case R.id.books_to_read:
                     bookFragment.setTypeOfBooks("TOREAD");
-                    mToolbar.setTitle(R.string.books_to_read);
+                    binding.toolbar.setTitle(R.string.books_to_read);
                     break;
             }
 

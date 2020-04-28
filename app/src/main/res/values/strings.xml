@@ -21,9 +21,9 @@
     <string name="toast_input_rating">Please input rating</string>
     <string name="dialog_delete_book">Do you really want to delete this book?</string>
     <string name="dialog_negative_option">Cancel</string>
-
-
     <string name="dialog_positive_option">Delete</string>
+
+    <string name="search_hint">Enter book title or author</string>
 
 
 </resources>

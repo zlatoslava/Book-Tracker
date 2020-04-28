@@ -12,9 +12,12 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.util.DBUtil;
 
 import com.bumptech.glide.Glide;
+import com.example.booktracker.databinding.BookItemBinding;
 import com.example.booktracker.models.Book;
 import com.example.booktracker.R;
 
@@ -25,7 +28,6 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
 
     private List<Book> mBooks;
     private List<Book> mBookListFull;
-    private StringBuilder authorsString;
     private Context mContext;
     private OnBookListener mOnBookListener;
 
@@ -40,34 +42,14 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.book_item, parent, false);
-        return new MyViewHolder(view, mOnBookListener);
+        BookItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(mContext), R.layout.book_item, parent, false);
+        return new MyViewHolder(binding, mOnBookListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Book book = mBooks.get(position);
-
-        Uri imageUri = Uri.parse(book.getImageUrl());
-//        Uri imageUri = Uri.parse("book.getImageUrl()"); //TODO: change
-
-        Glide.with(mContext)
-                .load(imageUri)
-                .centerCrop()
-                .error(R.drawable.book_cover_placeholder)
-                .into(holder.bookImage);
-
-        holder.bookName.setText(book.getName());
-
-        authorsString = new StringBuilder();//TODO: maybe change
-        ArrayList<String> authors = (ArrayList<String>) book.getAuthors();
-        if (!authors.isEmpty()) {
-            for (String author : authors) {
-                authorsString.append(author + ", ");
-            }
-        }
-        holder.bookAuthor.setText(authorsString.toString());
-        holder.ratingBar.setNumStars(book.getRating());
+        holder.bind(book);
     }
 
 
@@ -92,28 +74,26 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        ImageView bookImage;
-        TextView bookName;
-        TextView bookAuthor;
-        RatingBar ratingBar;
 
+        final BookItemBinding binding;
         OnBookListener onBookListener;
 
-
-        public MyViewHolder(@NonNull View itemView, OnBookListener onBookListener) {
-            super(itemView);
-            bookImage = itemView.findViewById(R.id.book_image);
-            bookName = itemView.findViewById(R.id.book_name);
-            bookAuthor = itemView.findViewById(R.id.book_author);
-            ratingBar = itemView.findViewById(R.id.book_rating);
+        public MyViewHolder(@NonNull BookItemBinding binding, OnBookListener onBookListener) {
+            super(binding.getRoot());
+            this.binding = binding;
             this.onBookListener = onBookListener;
 
-            itemView.setOnClickListener(this);
+            binding.getRoot().setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             onBookListener.onBookClicked(getAdapterPosition());
+        }
+
+        public void bind(Book book){
+            binding.setBook(book);
+            binding.executePendingBindings();
         }
     }
 
@@ -127,13 +107,12 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
                 for (Book book : mBookListFull) {
-                    if (authorsString.toString().toLowerCase().contains(filterPattern) ||
+                    if (book.getAuthors().toString().toLowerCase().contains(filterPattern) ||   //TODO: check if right
                             book.getName().toLowerCase().contains(filterPattern)) {
                         filteredList.add(book);
                     }
                 }
             }
-
 
             FilterResults results = new FilterResults();
             results.values = filteredList;

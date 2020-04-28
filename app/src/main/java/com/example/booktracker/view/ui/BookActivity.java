@@ -32,7 +32,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.booktracker.BuildConfig;
 import com.example.booktracker.models.Book;
-import com.example.booktracker.models.BookViewModel;
+import com.example.booktracker.viewModels.BookViewModel;
 import com.example.booktracker.models.ImageLinks;
 import com.example.booktracker.R;
 
@@ -281,8 +281,8 @@ public class BookActivity extends AppCompatActivity {
 
         mBook.setName(title);
         List<String> authors = new ArrayList<>();
-        authors.add("Author 1");
-        authors.add("Author 2");
+        authors.add(author);
+//        authors.add("Author 2");
 //        author.
 //        mBook.setAuthors();  //TODO: temporary dummy text, CHANGE!
         mBook.setAuthors(authors);

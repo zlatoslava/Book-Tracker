@@ -8,5 +8,5 @@ import retrofit2.http.Query;
 
 public interface RetrofitApi {
     @GET("volumes?maxResults=20")
-    Call<Results> getBooks(@Query("q") String searchString);
+    Call<Results> getBooks(@Query("q") String search);
 }
