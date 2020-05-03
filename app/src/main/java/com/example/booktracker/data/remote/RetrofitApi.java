@@ -1,6 +1,6 @@
 package com.example.booktracker.data.remote;
 
-import com.example.booktracker.models.Results;
+import com.example.booktracker.data.models.Results;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
