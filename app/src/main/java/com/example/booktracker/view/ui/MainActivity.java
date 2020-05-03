@@ -2,7 +2,6 @@ package com.example.booktracker.view.ui;
 
 import androidx.annotation.*;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +11,6 @@ import android.view.View;
 
 import com.example.booktracker.R;
 import com.example.booktracker.databinding.ActivityMainBinding;
-import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 

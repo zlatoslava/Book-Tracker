@@ -23,7 +23,7 @@ import android.view.inputmethod.EditorInfo;
 
 import com.example.booktracker.view.adapter.MyRecyclerAdapter;
 import com.example.booktracker.models.Book;
-import com.example.booktracker.viewModels.BookViewModel;
+import com.example.booktracker.viewModels.BookListViewModel;
 import com.example.booktracker.R;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import java.util.List;
 
 public class BooksListFragment extends Fragment implements MyRecyclerAdapter.OnBookListener {
 
-    private BookViewModel mBookViewModel;
+    private BookListViewModel mBookViewModel;
     private RecyclerView mRecyclerView;
     private MyRecyclerAdapter mRecyclerAdapter;
     private String bookType;
@@ -64,7 +64,7 @@ public class BooksListFragment extends Fragment implements MyRecyclerAdapter.OnB
     }
 
     private void loadDataToRecyclerView(){
-        mBookViewModel = new ViewModelProvider(getActivity()).get(BookViewModel.class);
+        mBookViewModel = new ViewModelProvider(getActivity()).get(BookListViewModel.class);
         mBookViewModel.getBooksByStatus(bookType).observe(getViewLifecycleOwner(), new Observer<List<Book>>() {
             @Override
             public void onChanged(List<Book> books) {

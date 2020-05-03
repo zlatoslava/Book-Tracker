@@ -9,15 +9,19 @@
     <string name="image_description">Book cover</string>
     <string name="title_hint">Title</string>
     <string name="author_hint">Author</string>
-    <string name="fab_search">Search</string>
 
+    <string name="fab_search">Search</string>
     <string name="fab_enter">Add book manually</string>
+
     <string name="read_books">Read books</string>
     <string name="unfinished_books">Unfinished books</string>
-
     <string name="books_to_read">Books to read</string>
-    <string name="toast_input_data">Please input data</string>
 
+    <string name="edit_book_title">Edit book</string>
+
+    <string name="toast_input_data">Please input data</string>
+    <string name="toast_delete_book">Book deleted</string>
+    <string name="toast_saved">Book saved</string>
     <string name="toast_input_rating">Please input rating</string>
     <string name="dialog_delete_book">Do you really want to delete this book?</string>
     <string name="dialog_negative_option">Cancel</string>
@@ -25,5 +29,13 @@
 
     <string name="search_hint">Enter book title or author</string>
 
+    <string name="dialog_take_photo">Take photo</string>
+    <string name="dialog_choose_gallery">Choose from gallery</string>
+    <string name="dialog_choose_book_cover">Choose book cover</string>
+
+    <string name="permission_granted">Permission granted</string>
+    <string name="permission_denied">Permission denied</string>
+    <string name="permission_needed">Permission needed</string>
+    <string name="permission_explanation">This permission is needed for saving images taken by camera</string>
 
 </resources>

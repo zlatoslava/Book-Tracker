@@ -48,6 +48,9 @@ public class Book implements Parcelable {
 
     @Ignore
     public Book() {
+        name = "";
+        ImageLinks newImageLinks = new ImageLinks("url");
+        imageLinks = newImageLinks;
     }
 
     protected Book(Parcel in){
@@ -125,7 +128,8 @@ public class Book implements Parcelable {
     }
 
     public void setImageUrl(String url){
-        imageLinks.setImageUrl(url);
+        ImageLinks imageLinks = new ImageLinks(url);
+        setImageLinks(imageLinks);
     }
 
     @Override

@@ -10,13 +10,13 @@ import com.example.booktracker.models.Book;
 
 import java.util.List;
 
-public class BookViewModel extends AndroidViewModel {
+public class BookListViewModel extends AndroidViewModel {
 
     private DataBaseRepository mRepository;
 
     private LiveData<List<Book>> mAllBooks;
 
-    public BookViewModel(Application application) {
+    public BookListViewModel(Application application) {
         super(application);
         mRepository = new DataBaseRepository(application);
         mAllBooks = mRepository.getAllBooks();
@@ -32,17 +32,5 @@ public class BookViewModel extends AndroidViewModel {
 
     public LiveData<List<Book>> getBooksByStatus(String status) {
         return mRepository.getBooksByStatusTask(status);
-    }
-
-    public void insert(Book book) {
-        mRepository.insertBookTask(book);
-    }
-
-    public void delete(Book... books) {
-        mRepository.deleteBooksTask(books);
-    }
-
-    public void update(Book... books) {
-        mRepository.updateBooksTask(books);
     }
 }

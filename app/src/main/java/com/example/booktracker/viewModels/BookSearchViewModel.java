@@ -10,7 +10,6 @@ import java.util.List;
 public class BookSearchViewModel {
 
     private WebServiceRepository mWebServiceRepository;
-    //private LiveData<List<Book>> mBooks;
 
     public BookSearchViewModel(){
         mWebServiceRepository = WebServiceRepository.getInstance();
