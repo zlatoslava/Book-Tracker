@@ -7,7 +7,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.booktracker.models.Book;
+import com.example.booktracker.data.models.Book;
 
 import java.util.List;
 

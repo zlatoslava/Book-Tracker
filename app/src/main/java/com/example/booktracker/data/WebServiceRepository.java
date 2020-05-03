@@ -6,9 +6,9 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.booktracker.data.remote.RetrofitApi;
 import com.example.booktracker.data.remote.RetrofitInstance;
-import com.example.booktracker.models.Book;
-import com.example.booktracker.models.Result;
-import com.example.booktracker.models.Results;
+import com.example.booktracker.data.models.Book;
+import com.example.booktracker.data.models.Result;
+import com.example.booktracker.data.models.Results;
 
 import java.util.ArrayList;
 import java.util.List;

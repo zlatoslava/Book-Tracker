@@ -6,7 +6,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.booktracker.data.DataBaseRepository;
-import com.example.booktracker.models.Book;
+import com.example.booktracker.data.models.Book;
 
 import java.util.List;
 

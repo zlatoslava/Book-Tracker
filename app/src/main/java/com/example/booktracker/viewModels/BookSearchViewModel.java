@@ -3,7 +3,7 @@ package com.example.booktracker.viewModels;
 import androidx.lifecycle.LiveData;
 
 import com.example.booktracker.data.WebServiceRepository;
-import com.example.booktracker.models.Book;
+import com.example.booktracker.data.models.Book;
 
 import java.util.List;
 

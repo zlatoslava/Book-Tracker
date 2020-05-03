@@ -22,7 +22,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 
 import com.example.booktracker.view.adapter.MyRecyclerAdapter;
-import com.example.booktracker.models.Book;
+import com.example.booktracker.data.models.Book;
 import com.example.booktracker.viewModels.BookListViewModel;
 import com.example.booktracker.R;
 

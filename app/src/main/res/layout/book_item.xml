@@ -4,7 +4,7 @@
     <data>
         <variable
             name="book"
-            type="com.example.booktracker.models.Book" />
+            type="com.example.booktracker.data.models.Book" />
     </data>
 
     <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"

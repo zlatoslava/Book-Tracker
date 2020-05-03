@@ -2,32 +2,19 @@ package com.example.booktracker.view.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.example.booktracker.databinding.ActivityBookSearchBinding;
 import com.example.booktracker.view.adapter.MyRecyclerAdapter;
-import com.example.booktracker.models.Book;
-import com.example.booktracker.models.Result;
-import com.example.booktracker.models.Results;
-import com.example.booktracker.R;
-import com.example.booktracker.data.remote.RetrofitApi;
-import com.example.booktracker.data.remote.RetrofitInstance;
+import com.example.booktracker.data.models.Book;
 import com.example.booktracker.viewModels.BookSearchViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class BookSearchActivity extends AppCompatActivity implements MyRecyclerAdapter.OnBookListener, SearchView.OnQueryTextListener {
 

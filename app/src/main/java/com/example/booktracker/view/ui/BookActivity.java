@@ -20,7 +20,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,7 +29,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.booktracker.BuildConfig;
 import com.example.booktracker.databinding.ActivityBookBinding;
-import com.example.booktracker.models.Book;
+import com.example.booktracker.data.models.Book;
 import com.example.booktracker.R;
 import com.example.booktracker.viewModels.SingleBookViewModel;
 

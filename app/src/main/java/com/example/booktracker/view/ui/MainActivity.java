@@ -2,6 +2,7 @@ package com.example.booktracker.view.ui;
 
 import androidx.annotation.*;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,9 +13,12 @@ import android.view.View;
 import com.example.booktracker.R;
 import com.example.booktracker.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.leinardi.android.speeddial.SpeedDialActionItem;
+import com.leinardi.android.speeddial.SpeedDialView;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements  SpeedDialView.OnActionSelectedListener {
 
     ActivityMainBinding binding;
 
@@ -29,8 +33,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void initializeViews() {
-        binding.fabSearch.setOnClickListener(this);
-        binding.fabEnterManually.setOnClickListener(this);
+        binding.fabMenu.addActionItem( new SpeedDialActionItem.Builder(R.id.fab_search, R.drawable.search)
+                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.color_secondary_variant, getTheme()))
+                .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.color_on_primary, getTheme()))
+                .setLabel(getString(R.string.fab_search))
+                .setFabSize(FloatingActionButton.SIZE_NORMAL)
+                .create());
+        binding.fabMenu.addActionItem(new SpeedDialActionItem.Builder(R.id.fab_enter_manually, R.drawable.edit)
+                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.color_secondary_variant, getTheme()))
+                .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.color_on_primary, getTheme()))
+                .setLabel(getString(R.string.fab_enter))
+                .setFabSize(FloatingActionButton.SIZE_NORMAL)
+                .create());
+        binding.fabMenu.setOnActionSelectedListener(this);
 
         setSupportActionBar(binding.toolbar);
 
@@ -66,27 +81,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.fab_search:
-                binding.fabMenu.collapse();
-                Intent searchIntent = new Intent(this, BookSearchActivity.class);
-                startActivity(searchIntent);
-                break;
-
-            case R.id.fab_enter_manually:
-                binding.fabMenu.collapse();
-                Intent intent = new Intent(this, BookActivity.class);
-                startActivity(intent);
-                break;
-        }
-    }
-
     private BottomNavigationView.OnNavigationItemSelectedListener mNavListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
+            binding.fabMenu.close();
             BooksListFragment bookFragment = new BooksListFragment();
             switch (item.getItemId()) {
                 case R.id.read_books:
@@ -102,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     binding.toolbar.setTitle(R.string.books_to_read);
                     break;
             }
-
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, bookFragment)
                     .commit();
 
@@ -111,4 +108,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     };
 
 
+    @Override
+    public boolean onActionSelected(SpeedDialActionItem actionItem) {
+        switch(actionItem.getId()){
+            case R.id.fab_enter_manually:
+                Intent intent = new Intent(this, BookActivity.class);
+                startActivity(intent);
+                binding.fabMenu.close();
+                return true;
+            case R.id.fab_search:
+                Intent searchIntent = new Intent(this, BookSearchActivity.class);
+                startActivity(searchIntent);
+                binding.fabMenu.close();
+                return true;
+        }
+        return false;
+    }
 }

@@ -7,6 +7,12 @@
     android:background="@color/color_primary_variant"
     tools:context=".view.ui.MainActivity">
 
+    <com.leinardi.android.speeddial.SpeedDialOverlayLayout
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="#616161" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -20,36 +26,15 @@
         android:layout_above="@id/bottom_navigation"
         android:layout_below="@id/toolbar" />
 
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
+    <com.leinardi.android.speeddial.SpeedDialView
         android:id="@+id/fab_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        app:fab_addButtonColorNormal="@color/color_secondary_variant"
-        app:fab_addButtonColorPressed="@color/color_on_background"
-        app:fab_addButtonPlusIconColor="@android:color/white"
         android:layout_above="@id/bottom_navigation"
-        app:fab_labelStyle="@style/custom_fab" >
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_search"
-            app:fab_title="@string/fab_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/color_primary"
-            app:fabSize="mini"
-            app:fab_icon="@drawable/search" />
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_enter_manually"
-            app:fab_title="@string/fab_enter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/color_primary"
-            app:fabSize="mini"
-            app:fab_icon="@drawable/edit" />
-
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+        app:sdMainFabClosedSrc="@drawable/ic_add_white_24dp"
+        app:sdUseReverseAnimationOnClose="true"
+        app:sdOverlayLayout="@id/overlay"/>
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

@@ -1,24 +1,18 @@
 package com.example.booktracker.view.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.util.DBUtil;
 
-import com.bumptech.glide.Glide;
 import com.example.booktracker.databinding.BookItemBinding;
-import com.example.booktracker.models.Book;
+import com.example.booktracker.data.models.Book;
 import com.example.booktracker.R;
 
 import java.util.ArrayList;

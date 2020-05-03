@@ -1,4 +1,4 @@
-package com.example.booktracker.models;
+package com.example.booktracker.data.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

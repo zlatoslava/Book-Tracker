@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.booktracker.models.Book;
+import com.example.booktracker.data.models.Book;
 import com.example.booktracker.data.local.BookDao;
 import com.example.booktracker.data.local.BooksDatabase;
 
