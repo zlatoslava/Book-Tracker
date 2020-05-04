@@ -74,7 +74,8 @@ public class MainActivity extends AppCompatActivity implements  SpeedDialView.On
 
                 return true;
             case R.id.toolbar_settings:
-
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

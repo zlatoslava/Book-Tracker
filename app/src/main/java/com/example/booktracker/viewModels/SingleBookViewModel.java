@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.booktracker.R;
 import com.example.booktracker.data.DataBaseRepository;
-import com.example.booktracker.models.Book;
+import com.example.booktracker.data.models.Book;
 
 public class SingleBookViewModel extends AndroidViewModel {
 

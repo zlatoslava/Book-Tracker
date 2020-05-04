@@ -4,16 +4,16 @@
     <item
         android:id="@+id/read_books"
         android:icon="@drawable/read_book"
-        android:title="Read" />
+        android:title="@string/read_books" />
 
     <item
         android:id="@+id/unfinished_books"
         android:icon="@drawable/book_unfinished"
-        android:title="Unfinished" />
+        android:title="@string/unfinished_books" />
 
     <item
         android:id="@+id/books_to_read"
         android:icon="@drawable/book_to_read"
-        android:title="To read" />
+        android:title="@string/books_to_read" />
 
 </menu>

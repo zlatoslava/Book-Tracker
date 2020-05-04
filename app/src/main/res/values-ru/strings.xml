@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="spinner_choices">
+        <item>Прочитанные книги</item>
+        <item>Незаконченные книги</item>
+        <item>Книги к прочтению</item>
+    </array>
+
+    <string-array name="settings_list_preference_titles">
+        <item>Английский</item>
+        <item>Русский</item>
+    </string-array>
+
+    <string-array name="settings_list_preference_values">
+        <item>English</item>
+        <item>Russian</item>
+    </string-array>
+
+    <string name="image_description">Обложка книги</string>
+    <string name="title_hint">Название</string>
+    <string name="author_hint">Автор</string>
+
+    <string name="fab_search">Поиск в интернете</string>
+    <string name="fab_enter">Добавить книгу вручную</string>
+
+    <string name="read_books">Прочитанные книги</string>
+    <string name="unfinished_books">Незаконченные книги</string>
+    <string name="books_to_read">Книги к прочтению</string>
+
+    <string name="edit_book_title">Редактировать запись</string>
+    <string name="search_book_activity_title">Поиск книги</string>
+    <string name="book_info_activity_title">Информация</string>
+
+    <string name="toast_input_data">Пожалуйста, введите данные</string>
+    <string name="toast_delete_book">Книга удалена</string>
+    <string name="toast_saved">Книга сохранена</string>
+    <string name="toast_input_rating">Пожалуйста, укажите рейтинг</string>
+    <string name="dialog_delete_book">Вы действительно хотите удалить эту книгу?</string>
+    <string name="dialog_negative_option">Отмена</string>
+    <string name="dialog_delete_option">Удалить</string>
+    <string name="dialog_positive_option">Ок</string>
+
+    <string name="search_hint">Введите название книги или автора…</string>
+
+    <string name="dialog_take_photo">Сделать фото</string>
+    <string name="dialog_choose_gallery">Выбрать из галереи</string>
+    <string name="dialog_choose_book_cover">Загрузить обложку книги</string>
+
+    <!-- Permission dialog -->
+    <string name="permission_granted">Разрешение получено</string>
+    <string name="permission_denied">В разрешении отказано</string>
+    <string name="permission_needed">Требуется разрешение</string>
+    <string name="permission_explanation">Это разрешение необходимо для сохранения изображений, сделанных камерой</string>
+
+    <string name="title_activity_settings">Настройки</string>
+
+    <!-- Messages Preferences -->
+    <string name="info_title">Про приложение…</string>
+    <string name="language_title">Изменить язык</string>
+    <string name="language_dialog_title">Выберите свой язык</string>
+    <string name="clear_title">Очистить данные</string>
+    <string name="clear_summary">Удалить все записи</string>
+    <string name="theme_title">Тёмная тема</string>
+    <string name="theme_summary">Переключиться на тёмную тему</string>
+</resources>

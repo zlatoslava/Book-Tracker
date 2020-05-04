@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!--Material color attributes -->
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryVariant">@color/color_primary_variant</item>
@@ -18,12 +18,28 @@
         <item name="colorOnSurface">@color/color_on_surface</item>
 
         <!--Remap legacy AppCompat attributes to MaterialComponent attributes-->
-        <item name="colorPrimaryDark">?colorPrimaryVariant</item>
-        <item name="colorAccent">?colorSecondary</item>
+<!--        <item name="colorPrimaryDark">?colorPrimaryVariant</item>-->
+<!--        <item name="colorAccent">?colorSecondary</item>-->
+
     </style>
 
-    <style name="custom_fab" >
-        <item name="android:textColor">@android:color/white</item>
-    </style>
+
+
+<!--    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">-->
+<!--        <item name="colorPrimary">@color/primaryColor</item>-->
+<!--        <item name="colorPrimaryVariant">@color/primaryDarkColor</item>-->
+<!--        <item name="colorOnPrimary">@color/primaryTextColor</item>&ndash;&gt;-->
+<!--        <item name="colorSecondary">@color/secondaryColor</item>-->
+<!--        <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>-->
+<!--        <item name="colorOnSecondary">@color/secondaryTextColor</item>-->
+
+<!--        &lt;!&ndash; Additional colors &ndash;&gt;-->
+<!--&lt;!&ndash;        <item name="android:colorBackground">@color/colorBackground</item>&ndash;&gt;-->
+<!--&lt;!&ndash;        <item name="colorOnBackground">@color/colorOnBackground</item>&ndash;&gt;-->
+<!--&lt;!&ndash;        <item name="colorSurface">@color/colorSurface</item>&ndash;&gt;-->
+<!--&lt;!&ndash;        <item name="colorOnSurface">@color/colorOnSurface</item>&ndash;&gt;-->
+<!--&lt;!&ndash;        <item name="colorError">@color/colorError</item>&ndash;&gt;-->
+<!--&lt;!&ndash;        <item name="colorOnError">@color/colorOnError</item>&ndash;&gt;-->
+<!--    </style>-->
 
 </resources>

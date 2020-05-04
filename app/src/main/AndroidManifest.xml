@@ -12,16 +12,21 @@
         android:theme="@style/AppTheme"
         tools:replace="android:label">
         <activity
+            android:name=".view.ui.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".view.ui.MainActivity"/>
+        <activity
             android:name=".view.ui.BookSearchActivity"
-            android:label="Search book"
+            android:label="@string/search_book_activity_title"
             android:parentActivityName=".view.ui.MainActivity" />
         <activity
             android:name=".view.ui.BookActivity"
-            android:label="Book info"
+            android:label="@string/book_info_activity_title"
             android:parentActivityName=".view.ui.MainActivity" />
         <activity
             android:name=".view.ui.MainActivity"
-            android:label="BookTracker">
+            android:label="BookTracker"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,9 +44,9 @@
                 android:resource="@xml/file_paths" />
         </provider>
     </application>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>

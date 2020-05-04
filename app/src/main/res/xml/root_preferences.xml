@@ -1,0 +1,18 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreference
+        app:key="theme"
+        app:summary="@string/theme_summary"
+        app:title="@string/theme_title" />
+
+    <Preference
+        app:key="clear"
+        app:title="@string/clear_title"
+        app:summary="@string/clear_summary"/>
+
+    <Preference
+        app:key="info"
+        app:title="@string/info_title" />
+
+</PreferenceScreen>

@@ -5,12 +5,21 @@
         <item>Book to read</item>
     </array>
 
-    <string name="app_name">BookTracker</string>
+    <string-array name="settings_list_preference_titles">
+        <item>English</item>
+        <item>Russian</item>
+    </string-array>
+    <string-array name="settings_list_preference_values">
+        <item>English</item>
+        <item>Russian</item>
+    </string-array>
+
+    <string name="app_name" translatable="false">BookTracker</string>
     <string name="image_description">Book cover</string>
     <string name="title_hint">Title</string>
     <string name="author_hint">Author</string>
 
-    <string name="fab_search">Search</string>
+    <string name="fab_search">Search in web</string>
     <string name="fab_enter">Add book manually</string>
 
     <string name="read_books">Read books</string>
@@ -18,6 +27,8 @@
     <string name="books_to_read">Books to read</string>
 
     <string name="edit_book_title">Edit book</string>
+    <string name="search_book_activity_title">Search book</string>
+    <string name="book_info_activity_title">Book info</string>
 
     <string name="toast_input_data">Please input data</string>
     <string name="toast_delete_book">Book deleted</string>
@@ -25,7 +36,8 @@
     <string name="toast_input_rating">Please input rating</string>
     <string name="dialog_delete_book">Do you really want to delete this book?</string>
     <string name="dialog_negative_option">Cancel</string>
-    <string name="dialog_positive_option">Delete</string>
+    <string name="dialog_delete_option">Delete</string>
+    <string name="dialog_positive_option">Ok</string>
 
     <string name="search_hint">Enter book title or author</string>
 
@@ -33,9 +45,22 @@
     <string name="dialog_choose_gallery">Choose from gallery</string>
     <string name="dialog_choose_book_cover">Choose book cover</string>
 
+    <!-- Permission dialog -->
     <string name="permission_granted">Permission granted</string>
     <string name="permission_denied">Permission denied</string>
     <string name="permission_needed">Permission needed</string>
     <string name="permission_explanation">This permission is needed for saving images taken by camera</string>
+
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Messages Preferences -->
+    <string name="info_title">About an app…</string>
+    <string name="language_title">Change language</string>
+    <string name="language_dialog_title">Choose your language</string>
+    <string name="clear_title">Clear data</string>
+    <string name="clear_summary">Clean all application data</string>
+    <string name="theme_title">Dark theme</string>
+    <string name="theme_summary">Switch to dark mode</string>
+
 
 </resources>
