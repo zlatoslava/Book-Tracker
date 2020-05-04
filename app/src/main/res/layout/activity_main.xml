@@ -22,8 +22,7 @@
         android:layout_width="match_parent"
         android:background="@color/color_primary"
         app:titleTextColor="@color/color_on_primary"
-        android:layout_height="?attr/actionBarSize"
-        android:elevation="4dp"/>
+        android:layout_height="?attr/actionBarSize" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

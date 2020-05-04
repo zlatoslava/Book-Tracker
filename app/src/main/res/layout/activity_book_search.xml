@@ -6,14 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".view.ui.BookSearchActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_search_activity"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/color_primary"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_search_activity"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/color_primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleTextColor="@color/color_on_primary" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView_search_activity"
@@ -21,7 +32,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_search_activity"
+        app:layout_constraintTop_toBottomOf="@id/app_bar_layout"
         app:queryHint="@string/search_hint" />
 
     <androidx.recyclerview.widget.RecyclerView
