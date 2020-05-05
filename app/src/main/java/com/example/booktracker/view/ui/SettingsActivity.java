@@ -2,19 +2,25 @@ package com.example.booktracker.view.ui;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
+import androidx.preference.SwitchPreference;
 
 import com.example.booktracker.R;
 import com.example.booktracker.databinding.SettingsActivityBinding;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    public static final String KEY_PREF_THEME_SWITCH = "theme_switch";
-
-SettingsActivityBinding binding;
+    SettingsActivityBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +34,6 @@ SettingsActivityBinding binding;
 
         setSupportActionBar(binding.toolbarSettingsActivity);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
@@ -37,5 +41,33 @@ SettingsActivityBinding binding;
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
         }
+
+        @Override
+        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+            SwitchPreference switchPreference = getPreferenceManager().findPreference("theme");
+
+            boolean useDarkTheme = preferences.getBoolean("theme", false);
+
+            if (useDarkTheme) switchPreference.setChecked(true);
+            else switchPreference.setChecked(false);
+
+
+            switchPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+
+                    if (switchPreference.isChecked()) {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    } else {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    }
+                    return true;
+                }
+            });
+            return super.onCreateView(inflater, container, savedInstanceState);
+        }
+
     }
 }

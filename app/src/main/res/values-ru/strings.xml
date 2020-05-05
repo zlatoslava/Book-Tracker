@@ -60,6 +60,7 @@
     <string name="language_dialog_title">Выберите свой язык</string>
     <string name="clear_title">Очистить данные</string>
     <string name="clear_summary">Удалить все записи</string>
-    <string name="theme_title">Тёмная тема</string>
-    <string name="theme_summary">Переключиться на тёмную тему</string>
+    <string name="theme_summary_on">Тёмная тема включена</string>
+    <string name="theme_summary_off">Тёмная тема выключена</string>
+    <string name="theme_title">Поменять тему</string>
 </resources>

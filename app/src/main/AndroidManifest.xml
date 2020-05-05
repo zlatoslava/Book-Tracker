@@ -4,6 +4,7 @@
     package="com.example.booktracker">
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="BookTracker"
@@ -26,7 +27,8 @@
         <activity
             android:name=".view.ui.MainActivity"
             android:label="BookTracker"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:configChanges="uiMode">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

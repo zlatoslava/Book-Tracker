@@ -59,8 +59,9 @@
     <string name="language_dialog_title">Choose your language</string>
     <string name="clear_title">Clear data</string>
     <string name="clear_summary">Clean all application data</string>
-    <string name="theme_title">Dark theme</string>
-    <string name="theme_summary">Switch to dark mode</string>
+    <string name="theme_title">Change theme</string>
+    <string name="theme_summary_off">Dark theme OFF</string>
+    <string name="theme_summary_on">Dark theme ON</string>
 
 
 </resources>

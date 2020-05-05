@@ -2,13 +2,14 @@ package com.example.booktracker.view.ui;
 
 import androidx.annotation.*;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.booktracker.R;
 import com.example.booktracker.databinding.ActivityMainBinding;
@@ -21,6 +22,7 @@ import com.leinardi.android.speeddial.SpeedDialView;
 public class MainActivity extends AppCompatActivity implements  SpeedDialView.OnActionSelectedListener {
 
     ActivityMainBinding binding;
+    private int mLastDayNightMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,18 @@ public class MainActivity extends AppCompatActivity implements  SpeedDialView.On
 
         initializeViews();
         setInitialFragment();
+
+        if (savedInstanceState != null) {
+            mLastDayNightMode = AppCompatDelegate.getDefaultNightMode();
+        }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (AppCompatDelegate.getDefaultNightMode() != mLastDayNightMode) {
+            recreate();
+        }
     }
 
     public void initializeViews() {

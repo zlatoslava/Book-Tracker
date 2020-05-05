@@ -1,23 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--    <color name="color_primary">#1B1B1B</color>-->
-<!--    <color name="color_primary_variant">#111111</color>-->
-<!--    <color name="color_secondary">#00acc1</color>-->
-<!--    <color name="color_secondary_variant">#007c91</color>-->
-
-<!--    <color name="color_background">#424242</color>-->
-<!--    <color name="color_surface">#2C2C2C</color>-->
-<!--    <color name="color_error">#ad1457</color>-->
-
-<!--    <color name="color_on_primary">#ffffff</color>-->
-<!--    <color name="color_on_secondary">#000000</color>-->
-<!--    <color name="color_on_background">#757575</color>-->
-<!--    <color name="color_on_surface">#ffffff</color>-->
-<!--    <color name="color_on_error">#000000</color>-->
-
-<!--    <color name="color_event_time">#5ddef4</color>-->
-<!--    <color name="color_drawable_tint">#ffd600</color>-->
-
     <color name="color_primary">#434343</color>
     <color name="color_primary_variant">#6e6e6e</color>
     <color name="color_secondary">#6aebc0</color>
@@ -32,19 +14,5 @@
     <color name="color_on_background">#000000</color>
     <color name="color_on_surface">#000000</color>
     <color name="color_on_error">#000000</color>
-
-    <color name="colorPrimaryDark">#1c1c1c</color>
-    <color name="colorAccent">#e63946</color>
-
-
-<!--    <color name="primaryColor">#fce4ec</color>-->
-<!--    <color name="primaryLightColor">#ffffff</color>-->
-<!--    <color name="primaryDarkColor">#c9b2ba</color>-->
-<!--    <color name="secondaryColor">#6aebc0</color>-->
-<!--    <color name="secondaryLightColor">#a0fff3</color>-->
-<!--    <color name="secondaryDarkColor">#2db890</color>-->
-<!--    <color name="primaryTextColor">#000000</color>-->
-<!--    <color name="secondaryTextColor">#000000</color>-->
-<!--    <color name="colorOnPrimary">#000000</color>-->
     
 </resources>
