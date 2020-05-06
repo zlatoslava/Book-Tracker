@@ -71,6 +71,7 @@
                 android:letterSpacing="0"
 
                 android:text="@{book.name}"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/book_image"

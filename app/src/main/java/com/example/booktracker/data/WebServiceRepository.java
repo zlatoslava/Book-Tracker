@@ -1,6 +1,9 @@
 package com.example.booktracker.data;
 
 
+import android.util.Log;
+import android.widget.Toast;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -39,7 +42,8 @@ public class WebServiceRepository {
         mRetrofitApi.getBooks(search).enqueue(new Callback<Results>() {
             @Override
             public void onResponse(Call<Results> call, Response<Results> response) {
-                if(response.isSuccessful()){
+                if(response.isSuccessful() && response.body() != null && response.body().getItems() != null){
+
                     List<Result> results = response.body().getItems();
                     List<Book> bookList = new ArrayList<>();
                     for(Result result: results){
@@ -47,13 +51,13 @@ public class WebServiceRepository {
                     }
                     books.setValue(bookList);
                 } else {
-                    books.setValue(null);
+                    books.setValue(new ArrayList<>());
                 }
             }
 
             @Override
             public void onFailure(Call<Results> call, Throwable t) {
-                books.setValue(null);
+                books.setValue(new ArrayList<>());
             }
         });
 

@@ -48,7 +48,7 @@ public class SingleBookViewModel extends AndroidViewModel {
     public LiveData<String> getToastMessage() { return toastMessage; }
 
     public void deleteBook(){
-        mRepository.deleteBooksTask(mBook);
+        mRepository.deleteBookTask(mBook);
         toastMessage.setValue(getApplication().getString(R.string.toast_delete_book));
     }
 

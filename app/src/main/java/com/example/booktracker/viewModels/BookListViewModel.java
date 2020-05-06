@@ -33,4 +33,8 @@ public class BookListViewModel extends AndroidViewModel {
     public LiveData<List<Book>> getBooksByStatus(String status) {
         return mRepository.getBooksByStatusTask(status);
     }
+
+    public void deleteAllBooks(){
+        mRepository.deleteAllBooksTask();
+    }
 }

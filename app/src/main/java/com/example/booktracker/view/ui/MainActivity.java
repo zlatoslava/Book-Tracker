@@ -3,7 +3,6 @@ package com.example.booktracker.view.ui;
 import androidx.annotation.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;

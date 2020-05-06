@@ -33,11 +33,12 @@
     <string name="toast_input_data">Please input data</string>
     <string name="toast_delete_book">Book deleted</string>
     <string name="toast_saved">Book saved</string>
+    <string name="toast_all_books_deleted">Data cleared</string>
     <string name="toast_input_rating">Please input rating</string>
     <string name="dialog_delete_book">Do you really want to delete this book?</string>
     <string name="dialog_negative_option">Cancel</string>
     <string name="dialog_delete_option">Delete</string>
-    <string name="dialog_positive_option">Ok</string>
+    <string name="dialog_positive_option">OK</string>
 
     <string name="search_hint">Enter book title or author</string>
 
@@ -62,6 +63,8 @@
     <string name="theme_title">Change theme</string>
     <string name="theme_summary_off">Dark theme OFF</string>
     <string name="theme_summary_on">Dark theme ON</string>
+    <string name="about_an_app">Developed by Savinykh Zlatoslava</string>
+    <string name="dialog_delete_all_books">Do you really want to delete all entries?</string>
 
 
 </resources>

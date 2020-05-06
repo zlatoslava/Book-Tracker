@@ -27,8 +27,12 @@ public interface BookDao {
     LiveData<List<Book>> getBooksByStatus(String status);
 
     @Delete
-    int deleteBooks(Book... books);
+    int deleteBook(Book... books);
+
+    @Query("DELETE FROM books")
+    void deleteAllBooks();
 
     @Update
     int updateBooks(Book... books);
+
 }

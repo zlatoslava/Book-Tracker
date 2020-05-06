@@ -36,13 +36,15 @@ public class DataBaseRepository {
         new InsertAsyncTask(mBookDao).execute(book);
     }
 
-    public void deleteBooksTask(Book... books){
+    public void deleteBookTask(Book... books){
         new DeleteAsyncTask(mBookDao).execute(books);
     }
 
     public void updateBooksTask(Book... books){
         new UpdateAsyncTask(mBookDao).execute(books);
     }
+
+    public void deleteAllBooksTask() { new DeleteAllBooksAsyncTask(mBookDao).execute();}
 
 
     private static class InsertAsyncTask extends AsyncTask<Book, Void, Void> {
@@ -70,7 +72,7 @@ public class DataBaseRepository {
 
         @Override
         protected Void doInBackground(Book... books) {
-            mAsyncTaskDao.deleteBooks(books);
+            mAsyncTaskDao.deleteBook(books);
             return null;
         }
     }
@@ -86,6 +88,21 @@ public class DataBaseRepository {
         @Override
         protected Void doInBackground(Book... books) {
             mAsyncTaskDao.updateBooks(books);
+            return null;
+        }
+    }
+
+    private static class DeleteAllBooksAsyncTask extends AsyncTask<Void, Void, Void>{
+
+        private BookDao mAsyncTaskDao;
+
+        public DeleteAllBooksAsyncTask(BookDao asyncTaskDao) {
+            mAsyncTaskDao = asyncTaskDao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            mAsyncTaskDao.deleteAllBooks();
             return null;
         }
     }

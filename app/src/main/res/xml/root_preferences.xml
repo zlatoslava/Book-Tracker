@@ -9,11 +9,14 @@
 
     <Preference
         app:key="clear"
+        app:allowDividerAbove="true"
+        app:allowDividerBelow="true"
         app:title="@string/clear_title"
         app:summary="@string/clear_summary"/>
 
     <Preference
         app:key="info"
+        app:allowDividerAbove="true"
         app:title="@string/info_title" />
 
 </PreferenceScreen>

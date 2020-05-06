@@ -63,4 +63,7 @@
     <string name="theme_summary_on">Тёмная тема включена</string>
     <string name="theme_summary_off">Тёмная тема выключена</string>
     <string name="theme_title">Поменять тему</string>
+    <string name="about_an_app">Создатель приложения: Савиных Златослава</string>
+    <string name="dialog_delete_all_books">Вы действительно хотите удалить все записи?</string>
+    <string name="toast_all_books_deleted">Записи удалены</string>
 </resources>
