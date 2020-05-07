@@ -6,7 +6,10 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.booktracker.databinding.ActivityBookSearchBinding;
 import com.example.booktracker.view.adapter.MyRecyclerAdapter;
@@ -34,6 +37,11 @@ public class BookSearchActivity extends AppCompatActivity implements MyRecyclerA
 
         initializeViews();
     }
+    private boolean haveNetwork(){
+        ConnectivityManager cm = (ConnectivityManager) this.getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        return  networkInfo != null && networkInfo.isConnectedOrConnecting();
+    }
 
     private void initializeViews(){
         setSupportActionBar(binding.toolbarSearchActivity);
@@ -45,6 +53,10 @@ public class BookSearchActivity extends AppCompatActivity implements MyRecyclerA
 
         binding.searchViewSearchActivity.onActionViewExpanded();
         binding.searchViewSearchActivity.setOnQueryTextListener(this);
+
+        if(!haveNetwork()){
+            setNoInternetVisibility();
+        }
     }
 
     @Override
@@ -60,14 +72,29 @@ public class BookSearchActivity extends AppCompatActivity implements MyRecyclerA
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        mBookSearchViewModel.getBooksFromWeb(query).observe(this, new Observer<List<Book>>() {
-            @Override
-            public void onChanged(List<Book> books) {
-                mAdapter.setData(books);
-                mAdapter.notifyDataSetChanged();
-            }
-        });
+        if(haveNetwork()) {
+            setHasInternetVisibility();
+            mBookSearchViewModel.getBooksFromWeb(query).observe(this, new Observer<List<Book>>() {
+                @Override
+                public void onChanged(List<Book> books) {
+                    mAdapter.setData(books);
+                    mAdapter.notifyDataSetChanged();
+                }
+            });
+        } else {
+            setNoInternetVisibility();
+        }
         return true;
+    }
+
+    private void setNoInternetVisibility(){
+        binding.noInternetConnectionLayout.setVisibility(View.VISIBLE);
+        binding.recyclerViewSearchActivity.setVisibility(View.INVISIBLE);
+    }
+
+    private void setHasInternetVisibility(){
+        binding.noInternetConnectionLayout.setVisibility(View.GONE);
+        binding.recyclerViewSearchActivity.setVisibility(View.VISIBLE);
     }
 
     @Override

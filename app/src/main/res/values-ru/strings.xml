@@ -66,4 +66,5 @@
     <string name="about_an_app">Создатель приложения: Савиных Златослава</string>
     <string name="dialog_delete_all_books">Вы действительно хотите удалить все записи?</string>
     <string name="toast_all_books_deleted">Записи удалены</string>
+    <string name="no_internet_connection">Нету интернет соединения</string>
 </resources>

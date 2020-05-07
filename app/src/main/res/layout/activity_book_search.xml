@@ -44,4 +44,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchView_search_activity" />
 
+
+    <TextView
+        android:id="@+id/no_internet_connection_layout"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/wifi_off"
+        android:text="@string/no_internet_connection"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/recycler_view_search_activity"
+        app:layout_constraintEnd_toEndOf="@+id/recycler_view_search_activity"
+        app:layout_constraintStart_toStartOf="@+id/recycler_view_search_activity"
+        app:layout_constraintTop_toBottomOf="@+id/searchView_search_activity"
+        app:layout_constraintVertical_bias="0.26999998" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

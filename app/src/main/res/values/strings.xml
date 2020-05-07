@@ -65,6 +65,7 @@
     <string name="theme_summary_on">Dark theme ON</string>
     <string name="about_an_app">Developed by Savinykh Zlatoslava</string>
     <string name="dialog_delete_all_books">Do you really want to delete all entries?</string>
+    <string name="no_internet_connection">No internet connection</string>
 
 
 </resources>
